@@ -1,0 +1,60 @@
+<?php $this->headTitle("Before & After Gallery - Second City Roofing"); ?>
+
+<?php 
+
+foreach ($this->galleries as $g) :
+    $f[$g->id] = array('name' => $g->name, 'id' => $g->id);
+    foreach ($this->pictures[$g->id] as $p) :
+        if(!isset($f[$g->id]['imgs'])) : 
+            $f[$g->id]['imgs'] = array(array('image'=>$p->image, 'name'=>$p->name));
+        else :
+           array_push($f[$g->id]['imgs'], array('image'=>$p->image, 'name'=>$p->name));
+        endif;
+    endforeach;
+endforeach;
+?>
+
+<section class="page-sub">
+    <div class="page page-content">
+        <div class="content-sub">
+            <h1><?=$this->gallery_category->name?></h1>
+            <h2>Before and After Gallery</h2><br/>
+            <?php 
+                foreach ($f as $i) : 
+                    echo '<div class="gallery-category"><a href="#" id="gallery'.$i['id'].'" class="swipebox"><img width="300" src="http://cms.secondcityconstruction.com/media/5/gallery/'.$i['imgs'][0]['image'].'"></a><h3>'.$i['name'].'</h3></div>';
+                endforeach;
+           ?>
+        </div>
+    </div>
+</section>
+
+
+<script>
+$(document).ready(function() { 
+
+	
+	
+<?php 
+    foreach ($f as $i) :
+        $js = "
+            $( '#gallery".$i['id']."' ).click( function( e ) {
+                e.preventDefault();
+                
+                $.swipebox( [";
+            
+                foreach ($i['imgs'] as $l) :
+                    $js .= "{ href:'http://cms.secondcityconstruction.com/media/5/gallery/".$l['image']."', title:'".$l['name']."' },";
+                endforeach;
+                
+                $js .= "],
+        {
+            oopAtEnd: true,
+            hideBarsDelay : 0 // 0 to always show caption and action bar
+        }  );
+                } );";         
+        echo $js;
+    endforeach; 
+?>
+
+});
+</script>

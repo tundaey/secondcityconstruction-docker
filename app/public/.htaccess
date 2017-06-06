@@ -1,0 +1,30 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^website-ssrc.rhcloud.com$
+RewriteRule ^(.*)$ http://secondcityconstruction.com/$1 [R=301,L] 
+
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond $0#%{REQUEST_URI} ([^#]*)#(.*)\1$
+RewriteRule ^.*$ %2index.php [QSA,L]
+
+
+### This is for openshift .htaccess
+# Options +FollowSymlinks
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} -s [OR]
+# RewriteCond %{REQUEST_FILENAME} -l [OR]
+# RewriteCond %{REQUEST_FILENAME} -d
+# RewriteBase /
+# RewriteRule ^.*$ - [NC,L]
+# RewriteRule ^.*$ index.php [NC,L]
+
+#Options +FollowSymlinks
+#RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} -s [OR]
+#RewriteCond %{REQUEST_FILENAME} -l [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^.*$ - [NC,L]
+#RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
+#RewriteRule ^(.*) - [E=BASE:%1]
+#RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]

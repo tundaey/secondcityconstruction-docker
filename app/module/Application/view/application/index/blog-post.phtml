@@ -1,0 +1,61 @@
+<?php $this->headTitle($this->data['post']->title . ' - Second City Construction')?>
+
+<section class="page-sub">
+    <div class="page page-content">
+    
+    <div class="section grup">
+        <div class="col">
+            <?php
+                echo '<div class="blog-post post-page">
+                          <img class="post-image" src="'.$this->data['post']->feat_image.'" />
+                          <div class="post-content">
+                             <a href="https://plus.google.com/111821350411577755102/about" target="_blank"><img src="'.$this->basepath('img/ed-baker-80x80.jpg').'" alt="Ed Baker" /></a>
+                        	 <h2>'.$this->data['post']->title.'</h2>
+                             <h3>'.date("m-d-Y", strtotime($this->data['post']->date)).' - Posted by <a href="https://plus.google.com/111821350411577755102/about" target="_blank">Ed Baker</a></h3>
+                             <p>'.$this->data['post']->content.'</p>'; 
+                             /*
+                             // comment box
+                             echo '<h2>Comments</h2><br/>';
+                             
+                             foreach ($this->comments as $com) :
+                                echo '<div class="comment-box">';
+                                     // name and time
+                                    echo '<div>';
+                                         if($com->website != '') :
+                                            echo '<a href="'.$com->website.'">'.$com->name.'</a> at '.date("M d Y", strtotime($com->date));
+                                         else :
+                                            echo $com->name;
+                                         endif;
+                                     echo '</div>';
+                                     // message
+                                     echo '<div class="comment-msg">'.$com->message.'</div>';
+                                echo '</div><br/>';
+                             endforeach;
+                             
+                             echo '<a name="comments"></a>';
+                             $form = $this->form;
+                             $form->setAttribute('action', $this->url('blog_post', array('uri'=>$this->uri)));
+                             $form->prepare();
+                             // echo $this->form()->openTag($form);
+                             if($this->form_status == false) :
+                                 echo '<form action="'.$this->basepath('/blog/'.$this->uri).'#comments" method="post" name="comments" class="form-inline" id="comments">';
+                                 echo $this->formRow($form->get('name'));
+                                 echo $this->formRow($form->get('email'));
+                                 echo $this->formRow($form->get('website'));
+                                 echo $this->formRow($form->get('message'));
+                                 echo $this->formSubmit($form->get('submit'));
+                                 echo $this->form()->closeTag();
+                                 
+                                 else :
+                                 
+                                  echo '<div class="comment-send">Your comment is awaiting moderation.</div>';
+                                 
+                             endif;    
+                             */
+                      echo '</div></div>';
+                ?>
+        </div>
+    </div>
+</div>
+</section>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-501c6c6c4099e274" async="async"></script>

@@ -1,0 +1,272 @@
+@CHARSET "UTF-8";
+
+.blog-post h2 {
+	text-shadow: none;
+	font-size: 24px;
+}
+
+.blog-post h3 a:hover, .blog-post h2 a:hover {
+	text-decoration: underline;
+}
+
+.blog-post h3 {
+	font-size: 12px;
+	font-weight: 400;
+	padding: 7px 0;
+}
+
+.blog-post h3 a {
+	color: #469089;
+}
+
+.group {
+	display: table;
+}
+
+.group::after {
+    content: "";
+    display: table;
+}
+.group::after {
+    clear: both;
+}
+.group::before, .group::after {
+    content: "";
+    display: table;
+}
+
+.col {
+	display: block;
+    float: left;
+}
+
+.col-left {
+	clear: both;
+    width: 45%;
+	margin: 40px 0 0 0;
+}
+
+.col-right {
+	margin: 40px 0 0 2%;
+    width: 45%;
+	
+}
+
+.section {
+    clear: both;
+    margin: 0;
+    padding: 0;
+	display: table;
+}
+
+.blog-post {
+	//border: 1px solid #ccc;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.blog-post a img { 
+	float: left;
+	padding-right: 20px !important;
+}
+
+.blog-post p {
+	padding-bottom: 25px;
+}
+
+.blog-category-posts ul li {
+	list-style: none;
+	padding-left: 10px;
+}
+
+.blog-category-posts ul li a {
+	color: #469089;
+}
+
+.blog-category-posts ul li a:hover {
+	text-decoration: underline;
+}
+
+.blog-category-title {
+	font-weight: 500;
+	font-size: 18px;
+}
+.blog-post .post-thumb {
+	padding-bottom: 10px;
+}
+
+.blog-post .post-thumb a img {
+	padding: 0px 0 15px 0;
+}
+
+.blog-read-more {
+	border: 1px solid #ccc;
+	padding: 5px 15px;
+}
+
+.blog-share {
+	text-align: right;
+	height: 35px;
+	margin: 10px 0 0 0;
+}
+
+.post-page {
+	margin-top: 20px;
+	border: none !important;
+}
+
+.post-content {
+	padding: 20px 10%;
+}
+
+.post-content a {
+	color: #469089;
+}
+
+.post-image {
+	width: 100%;
+}
+
+.post-content a:hover {
+	text-decoration: underline;
+}
+
+.post-content p {
+	line-height: 26px;
+	font-family: Arial;
+	font-size: 19px;
+}
+
+.form-inline label {
+	height: 100px;
+	display: inline-block;
+	width: 100%;
+	padding-top: 10px;
+}
+.form-inline label span {
+	display: inline-block;
+	width: 100px;
+}
+.form-inline ul { 
+	list-style: none;
+	margin-left: 100px;
+}
+.form-inline ul li {
+	color: #ff0000;
+}
+.input-300 {
+	width: 50% !important;
+}
+.btn {
+	margin-left: 100px;
+}
+.textarea-lable-blog {
+	height: 170px !important;
+}
+.comment-send {
+	border: 1px solid #3ca9a4;
+	background-color: #60c6c1;
+	color: #fff;
+	padding: 15px;
+}
+.comment-box {
+	border: 1px solid #3ca9a4;
+	padding: 15px;
+}
+.comment-msg {
+	margin-top: 10px;
+}
+
+/* ******* CUSTOM PER BLOG */
+.content-sub {
+	padding-top: 0px !important;
+}
+
+.form-control {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.form-control {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    display: block;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+
+.input-300 {
+    border-radius: 4px;
+    font-size: 18px;
+    height: 45px;
+    line-height: 1.33;
+    padding: 10px 16px;
+    width: 300px;
+}
+
+.input-300 {
+    width: 50% !important;
+}
+
+.form-control-textarea {
+    height: 150px !important;
+}
+
+/*-----------------------------------
+# custom edits
+-----------------------------------*/
+.blog-post.col.col-left {
+	width: 50%;
+	box-sizing: border-box;
+	clear: none;
+	float: left !important;
+	margin: 0px !important;
+	overflow: hidden; 
+	padding: 10px 10px 17px 10px;
+}
+
+.cus-post-container {
+	width: 100%;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	padding: 10px 10px 17px 10px;
+}
+
+@media only screen and (max-width: 768px) {
+	.blog-post.col.col-left {
+		width: 100%;
+		box-sizing: border-box;
+		clear: both;
+		margin: 10px 10px 10px 17px !important;
+		overflow: hidden; 
+		padding: 10px 10px 17px 10px;
+	}
+}
+
+@media only screen and (max-width: 410px) {
+	.blog-post.col.col-left {
+		width: 100%;
+		box-sizing: border-box;
+		clear: both;
+		margin: 10px 10px 10px 8px !important;
+		overflow: hidden; 
+		padding: 10px 10px 17px 10px;
+	}
+}
+
+@media only screen and (max-width: 350px) {
+	.blog-post.col.col-left {
+		width: 100%;
+		box-sizing: border-box;
+		clear: both;
+		margin: 10px 10px 10px 8px !important;
+		overflow: hidden; 
+		padding: 10px 10px 17px 10px;
+	}
+}

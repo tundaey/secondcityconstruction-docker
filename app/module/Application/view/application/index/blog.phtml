@@ -1,0 +1,33 @@
+<?php $this->headTitle("Blog")?>
+
+<section class="page-sub">
+    <div class="page page-content">
+        <div class="content-sub">
+            <div class="section grup">
+                <div class="col">
+                    <?php
+                        foreach ($this->paginator as $post) :
+                            $img = '';
+                            if($post->feat_image != '') :
+                            $img .= '<div class="post-thumb">
+                                        <a href="'.$this->basepath('/blog/'.$post->uri).'" title=""> <img src="'.$post->feat_image.'" width="100%" alt="" title="" /> </a>
+                                     </div>';
+                            endif;
+                            $html = '<div class="blog-post col col-left">
+                                        <div class="cus-post-container"> 
+                                         '.$img.'
+                                         <a href="https://plus.google.com/111821350411577755102/about" target="_blank"><img src="'.$this->basepath('img/ed-baker-80x80.jpg').'" alt="Ed Baker" /></a>
+                                    	 <h2><a href="'.$this->basepath('/blog/'.$post->uri).'" title="">'.$post->title.'</a></h2>
+                                         <h3>'.date("m-d-Y", strtotime($post->date)).' - Posted by <a href="https://plus.google.com/111821350411577755102/about" target="_blank">Ed Baker</a></h3>
+                                         <p>'.$post->excerpt.'</p>
+                                         <a class="blog-read-more" href="'.$this->basepath('/blog/'.$post->uri).'">Read More</a>
+                                         </div>
+                                      </div>';
+                            echo $html;
+                        endforeach;
+                        ?>
+                </div>
+            </div>
+       </div>
+   </div>
+</section>

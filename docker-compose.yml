@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  com.seconcityconstrution:
+    build: ./app
+    volumes:
+      - ./app:/var/www/html
+      - ./app/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 6003:80
+    expose:
+      - "80"
+    environment:
+      - "VIRTUAL_HOST=scr.gowebvision.com"
+      - "VIRTUAL_PORT=80"
+    network_mode: "bridge"
+    links:
+      - mysql    
+      
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    restart: always
+    network_mode: "bridge"
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: KxLnMY8ySfHZ9V3C 
+      MYSQL_DATABASE: secondcityconstruction.com
+      MYSQL_USER: secondcity
+      MYSQL_PASSWORD: KxLnMY8ySfHZ9V3C
+    

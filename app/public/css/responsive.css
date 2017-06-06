@@ -1,0 +1,299 @@
+.pop-box {
+	background-color: #eb7806;
+	margin: 2px 0;
+	text-align: center;
+}
+
+.pop-box p {
+	padding: 10px 20px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 19px;
+}
+
+.slicknav_menu, .click-to-call, .go-to-top {
+	display:none;
+}
+.page {
+	max-width: 960px;
+	margin: auto;
+	text-align: left;
+}
+.content-sub {
+	margin: 0 0 20px;
+}
+.hd-logo {
+	width: 330px;
+	display: inline-block;
+	height: 160px;
+}
+
+.hd-action {
+	margin-top: 20px;
+	width: 270px;
+	text-align: center;
+}
+
+.hd-images {
+	display: inline-block;
+	height: 160px;
+}
+.hd-images ul li {
+	display: block;
+	float:left;
+}
+
+.hd-images ul li {
+	margin-left: -15px;
+}
+
+.hd-phone {
+	display: block;
+	line-height: 40px;
+	text-align: right;
+	font-size: 28px;
+	font-weight: 700;
+	margin-left: 20px;
+	padding-top: 5px;
+	background: url('../img/call.png') no-repeat top left;
+}
+
+.hd-slogan {
+	display: inline-block;
+	line-height: 20px;
+	text-align: center;
+	font-weight: 500;
+	font-size: 20px;
+	margin-top: 25px;
+}
+.content {
+	margin-top: 2% !important;
+}
+.col-left img {
+	float: left;
+	margin-right: 20px;
+}
+.col-right {
+	width: 30%;
+	margin-left: 3%;
+}
+.col-left {
+	display: table;
+	max-width: 65%;
+	clear: both;
+}
+.col {
+	display: block;
+	float:left;
+}
+
+.col:first-child { margin-left: 0; }
+
+.section {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+	content:"";
+	display:table;
+}
+.group:after {
+	clear:both;
+}
+.group {
+    zoom:1; /* For IE 6/7 */
+}
+
+/*  GRID OF THREE  */
+
+.col-right-box {
+	width: 100%;
+	background-color: #f1f1f1;
+	border-radius: 10px;
+	padding: 15px;
+	font-size: 14px;
+	margin-top: 15px;
+}
+
+
+.footer-nav ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.footer-nav {
+	padding: 20px;
+}
+.footer-nav ul li a.active {
+	background-color: #f36f14;
+	padding: 5px;
+}
+.footer-nav ul li {
+	display: inline-block;
+	font-size: 16px;
+	margin-right: 25px;
+}
+
+.footer-right {
+	float: right;
+	margin-top: 20px;
+}
+.social {
+	text-align: center;
+}
+.social ul li {
+	display: inline-block;
+}
+.copy {
+	padding: 20px;
+	color: #e0dcdc;
+}
+.direction {
+	color: #e0dcdc;
+	background: url('../img/map-pin.png') no-repeat left;
+	padding-left: 50px;
+}
+
+.content-sub {
+	padding: 10px 20px;
+}
+
+.prev-outer {
+	position: absolute;
+	margin: 70px 0 0 -40px;
+}
+
+.next-outer {
+	position: absolute;
+	margin: 70px 0 0 960px;
+}
+
+.prev, .next {
+	cursor: pointer;
+}
+
+.nav-quote {
+	background-color: #eb7806;
+	margin-left: 30%;
+	white-space: nowrap;
+}
+
+@media screen and (min-width: 769px) and (max-width: 960px)
+{
+	.prev-outer, .next-outer {
+		display: none;
+	}
+
+	.nav-top ul li { margin: 0 2% !important; }
+	.nav-about, .nav-contact { display: none !important; }
+	.content-outer {
+		padding: 1%;
+	}
+	.col-right img {
+		width: 100%;
+	}
+	.direction, .hd-image-2 {
+		display: none !important;
+	}
+	.social {
+		margin-right: 40px;
+	}
+	.hd-images ul li {
+		margin-left: -5 !important;
+	}
+	.hd-phone {
+		font-size: 46px;
+	}
+	.hd-slogan {
+		font-size: 16px;
+	}
+	.hd-action {
+		text-align: center;
+		margin: 20px 0 0;
+	}
+	.col-right-box {
+		width: 90%;
+	}
+	.guy { display: none; }
+}
+
+@media screen and (min-width: 0px) and (max-width: 768px) {
+	.prev-outer, .next-outer {
+		display: none;
+	}
+	.slicknav_menu {
+		display:block;
+	}
+	.hd-images {
+		 margin-left: -5px;
+	}
+	.hd-images ul li:last-child {
+		display: none;
+	}
+	.nav-top ul li { margin: 0 2% !important; }
+	.nav-about, .nav-contact { display: none !important; }
+	.content-outer {
+		padding: 5%;
+	}
+	.col-right img {
+		width: 100%;
+	}
+	.direction {
+		display: none;
+	}
+	.social {
+		margin-right: 40px;
+	}
+	.nav-top, .hd-images, .hd-slogan, .hd-phone, .footer-nav ul {
+		display: none;
+	}
+	.hd-action {
+		text-align: center;
+		margin: 0px;
+	}
+	.hd-logo {
+		width: 100%;
+		text-align: center;
+	}
+	.click-to-call {
+		display: table;
+		width: 100%;
+		background: #474747;
+		color: #fff;
+		text-decoration: none;
+		padding: 10px 0;
+		font-size: 30px;
+		font-weight: 700;
+		text-align: center;
+	}
+	.click-to-call img {
+		margin-bottom: -8px;
+	}
+	.col {
+		display: table;
+		width: 95%;
+	}
+	.col-left {
+		max-width: 100%;
+		padding-bottom: 20px;
+	}
+	.go-to-top {
+		display: block;
+		padding: 10px;
+		width: 100px;
+		color: #fff;
+		background-color: #f36f14;
+		text-decoration: none;
+	}
+	.copy {
+		font-size: 12px;
+	}
+	.col-right-box {
+		width: 90%;
+	}
+	.guy { display: none; }
+}

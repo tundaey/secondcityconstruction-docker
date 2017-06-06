@@ -1,0 +1,189 @@
+<?php $this->headTitle("Second City Roofing &amp; Construction - Chicago Roofing Contractor"); ?>
+
+<section class="slider" style="display: none">
+    <div id="slider1_container" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 960px; height: 327px; overflow: hidden;">
+        <!-- Loading Screen -->
+        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+            <div style="position: absolute; display: block; background: url(<?=$this->basepath('img/loading.gif')?>) no-repeat center center; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
+        </div>
+        <!-- Slides Container -->
+        <div data-u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 960px; height: 327px; overflow: hidden;">
+            <div>
+                <a href="//fast.wistia.net/embed/iframe/nfnq7ci1bi" class="wistia-popover[height=388,playerColor=7b796a,width=640]"><img data-u="image" src="<?=$this->basepath('img/slide_bestnewroof.png')?>" alt="" /></a>
+                <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+            </div>
+            <div>
+                <a href="//fast.wistia.net/embed/iframe/2xj73kgeg8?popover=true" class="wistia-popover[height=388,playerColor=7b796a,width=640]"><img data-u="image" src="<?=$this->basepath('img/slide-comcast.jpg')?>" alt="" /></a>
+                <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+            </div>
+            <div>
+                <img data-u="image" src="<?=$this->basepath('img/slide_military.jpg')?>" alt="" />
+            </div>
+            <div>
+                <a href="<?=$this->basepath('roofing-chicago/')?>"><img data-u="image" src="<?=$this->basepath('img/slide_20.jpg')?>" alt="" /></a>
+            </div>
+            <div>
+                <a href="<?=$this->basepath('roofing-chicago/')?>"><img data-u="image" src="<?=$this->basepath('img/slide_10_new.jpg')?>" alt="" /></a>
+            </div>
+            <div>
+                <a href="<?=$this->basepath('exterior-remodeling-chicago/')?>"><img data-u="image" src="<?=$this->basepath('img/slide_30.jpg')?>" alt="" /></a>
+            </div>
+        </div>
+
+        <!-- Bullet Navigator Skin Begin -->
+        <!-- bullet navigator container -->
+        <div data-u="navigator" class="jssorb21" style="position: absolute; bottom: 26px; left: 6px;">
+            <!-- bullet navigator item prototype -->
+            <div data-u="prototype" style="POSITION: absolute; WIDTH: 19px; HEIGHT: 19px; text-align:center; line-height:19px; color:White; font-size:12px;">
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section style="display: none">
+    <div class="page">
+        <div class="pop-box">
+            <p>Call and inquire about our exterior and interior showroom.</p>
+        </div>
+    </div>
+</section>
+
+<section class="carusel">
+    <div class="page">
+        <div class="prev-outer"><img class="prev" src="<?=$this->basepath('img/nav-left.gif')?>" /></div>
+        <div class="next-outer"><img class="next" src="<?=$this->basepath('img/nav-right.gif')?>" /></div>
+        <div id="services" class="owl-carousel">
+          <div><a href="<?=$this->basepath('roofing-chicago/')?>"><img src="<?=$this->basepath('img/icon_roof.jpg')?>" /></a><br/>Shingle Roofing</div>
+          <div><a href="<?=$this->basepath('roofing-chicago/')?>"><img src="<?=$this->basepath('img/icon_flat_roofing_new.jpg')?>" /></a><br/>Flat Roofing</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#masonry')?>"><img src="<?=$this->basepath('img/icon_masonry.jpg')?>" /></a><br/>Masonry & Tuckpointing</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#siding')?>"><img src="<?=$this->basepath('img/icon_siding.jpg')?>" /></a><br/>Siding</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#gutters')?>"><img src="<?=$this->basepath('img/icon_gutters.jpg')?>" /></a><br/>Soffit & Gutters</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#chimney')?>"><img src="<?=$this->basepath('img/icon_chimney.jpg')?>" /></a><br/>Chimney Rebuilds</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#windows')?>"><img src="<?=$this->basepath('img/icon_windows.jpg')?>" /></a><br/>Replacement Windows</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#doors')?>"><img src="<?=$this->basepath('img/icon_doors.jpg')?>" /></a><br/>Replacement Doors</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#porch')?>"><img src="<?=$this->basepath('img/icon_porches.jpg')?>" /></a><br/>Porch Services</div>
+          <div><a href="<?=$this->basepath('exterior-remodeling-chicago/#fencing')?>"><img src="<?=$this->basepath('img/icon_fencing.jpg')?>" /></a><br/>Fencing</div>
+
+        </div>
+        <script>
+            $(document).ready(function() {
+              $("#services").owlCarousel({
+            	  autoPlay: 2000, stopOnHover: true, pagination : false, itemsDesktop : [1199,6], itemsDesktopSmall : [960,5], itemsTablet : [768,4], itemsTabletSmall : [700,3], itemsMobile : [500,2]
+              });
+              var owl = $("#services");
+              $(".next").click(function(){
+          	    owl.trigger('owl.next');
+        	  });
+              $(".prev").click(function(){
+          	    owl.trigger('owl.prev');
+        	  })
+            });
+        </script>
+    </div>
+</section>
+
+<section>
+    <div class="page">
+        <div id="trust" class="owl-carousel trust">
+          <div><img src="<?=$this->basepath('img/icon_bbb.png')?>" /></div>
+          <div><img src="<?=$this->basepath('img/icon_yelp.png')?>" /></div>
+          <div><img src="<?=$this->basepath('img/icon_angie.png')?>" /></div>
+          <div><img src="<?=$this->basepath('img/icon_tv.png')?>" /></div>
+          <div><img src="<?=$this->basepath('img/icon_certainTeed.png')?>" /></div>
+          <div class="icon_gogole"><img src="<?=$this->basepath('img/icon_google.png')?>" /></div>
+        </div>
+        <script>
+            $(document).ready(function() {
+              $("#trust").owlCarousel({
+            	 pagination : false, items : 6, itemsDesktop : [1199,6], itemsDesktopSmall : [960,4], itemsTablet : [768,4], itemsTabletSmall : [700,3], itemsMobile : [500,2]
+              });
+            });
+        </script>
+    </div>
+</section>
+<section>
+    <div class="page">
+        <div class="content-outer">
+            <h1>Chicago Roofing & Exterior Contractor</h1>
+            <h2>Serving Chicagoland for Over 37 Years. Doing the Best Chicago Roofing Work for the Best Price.</h2>
+            <div class="content section group">
+                <div class="col col-left">
+                    <img src="<?=$this->basepath('img/owner.jpg')?>" />Get the best value, service, and warranty on the highest quality roofing and home improvement work from the best in Chicagoland. We are an A+ rated roofing company with the BBB in the Chicago, IL area.
+                    <br/>
+                    Contact Second City Roofing & Construction – Your number One Roofer in Chicago.<br/>
+                    At Second City Roofing & Construction, we pride ourselves on being the best Chicago roofing contractor. That means we have to be the best at everything: The best service, price, delivery standards and the best professional work done to your requirements.
+                    <br/><br/>
+                    <b>Residential Roofing in Chicago</b><br/>
+                    A fully licensed, bonded and insured roofing and home improvement company we are dedicated to providing our clients with excellent service, and the best workmanship and products. Ask us about roof replacement costs in Chicago and you’ll be amazed at our quotes for the entire job. Put us to the test today!
+                    <br/><br/>
+                    <b>Flat Roof in Chicago</b><br/>
+                    Flat roof replacement is our field of expertise. Using only the best insulation, rubber roofing products, and aluminum coating depending on your requirements and budget we offer a full manufacturer warranty and excellent workmanship. Your roof is a vital part of the overall structural integrity of your home and roof installation in Chicago needs to be professionally done.
+                    <br/><br/>
+                    We will advise you of the roof replacement cost and have a number of excellent financial solutions available for our customers. Keep the roof over your head safe, secure and stable with the best roofer in Chicago – Second City Roofing & Construction.
+                    <br/><br/>
+                    <h2>Also Serving Chicago Surrounding Suburbs:</h2>
+
+                    <table style="width: 100%">
+                    <tr><td>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-bellwood-il/">Bellwood, IL</a><br/>
+                            &bull; Bensenville, IL<br/>
+                            &bull; Berkeley, IL<br/>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-berwyn-il/">Berwyn, IL</a><br/>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-broadview-il-60155/">Broadview, IL</a><br/>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-burbank-il-60459/">Burbank, IL</a><br/>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-cicero-il-60804/">Cicero, IL</a><br/>
+                            &bull; Des Plaines, IL<br/>
+                            &bull; Elk Grove Village, IL<br/>
+                            &bull; Elmhurst, IL<br/>
+                            &bull; Elmwood Park, IL<br/>
+                            &bull; <a href="http://www.secondcityconstruction.com/roofing-forest-park-il-60130/">Forest Park, IL</a><br/>
+                            &bull; Franklin Park, IL<br/>
+                            &bull; Galewood, IL<br/>
+                            &bull; Golf, IL<br/>
+                            &bull; Harwood Heights, IL<br/>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            &bull; Hines, IL<br/>
+                            &bull; Itasca, IL<br/>
+                            &bull; Lincolnwood, IL<br/>
+                            &bull; Maywood, IL<br/>
+                            &bull; Melrose Park, IL<br/>
+                            &bull; Morton Grove, IL<br/>
+                            &bull; Niles, IL<br/>
+                            &bull; Norridge, IL<br/>
+                            &bull; Northlake, IL<br/>
+                            &bull; Oak Park, IL<br/>
+                            &bull; River Forest, IL<br/>
+                            &bull; River Grove, IL<br/>
+                            &bull; Schiller Park, IL<br/>
+                        </td>
+                    </tr>
+                    </table>
+
+                </div>
+                <div class="col col-right">
+                    <img src="<?=$this->basepath('img/payment.jpg')?>" />
+                    <div class="col-right-box">
+                        <b>Fully Licensed, Bonded & Insured</b><br/>
+                        State of Illinois Roofing Lic: #104.013526<br/>
+                        City of Chicago GC Lic: #GC04529-6<br/>
+                        City of Chicago Home Repair Lic: #18818<br/>
+                        <br/>
+                        We are licensed in Chicago and
+                        most Chicagoland suburbs.
+                    </div>
+                    <div class="col-right-box">
+                        <b>Second City Roofing & Construction</b><br/>
+                        3006 West Diversey Avenue<br/>Chicago, IL 60647 <br/>
+                        Call Now for an Estimate: 773-384-6300 <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

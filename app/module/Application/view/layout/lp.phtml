@@ -1,0 +1,228 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="google-site-verification" content="1uFFFDjBZIsbgI8vQt80Vg7-XSlrr-Ijeo_7HWuurY8" />
+        <meta name="y_key" content="bcb271f746aed7a3" />
+        <?php echo $this->headTitle()->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+        <meta name="description" content="<?=$this->meta_description?>"/>
+        <meta name="keywords" content="<?=$this->meta_keywords?>"/>
+        <link rel="canonical" href="<?=$this->url?>" />
+        <link rel="author" href="https://plus.google.com/111821350411577755102"/>
+        <link rel="publisher" href="https://plus.google.com/117094283084277013386"/>
+        <meta name="google-site-verification" content="k0Ogk2Io0q4c99QWv1cxpqpzH0ojiY9y4uN1XZtafjY" />
+        <meta name="msvalidate.01" content="96FFAD62733EF561B224CAD480BFE5E2" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@Roofer_Chicago">
+        <meta name="twitter:description" content="Your First Choice For Roofing Chicago, IL. Get the best value, service, and warranty on the highest quality roofing work from the best in Chicago.">
+        <meta property='og:locale' content='en_US'/>
+
+        <meta property="fb:admins" content="666335241"/>
+        <meta property="og:title" content="<?=$this->title?>"/>
+        <meta property="og:description" content="<?=$this->meta_description?>"/>
+        <meta property="og:url" content="<?=$this->url?>"/>
+        <meta property="og:site_name" content="Second City Roofing & Construction"/>
+        <meta property="og:type" content="<?=$this->type?>"/>
+        <meta property='og:image' content='http://www.secondcityconstruction.com/img/<?=$this->img?>'/>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/swipebox.min.css') 
+                        ->prependStylesheet($this->basePath() . '/css/owl.carousel.css')
+                        ->prependStylesheet($this->basePath() . '/css/owl.theme.css')
+                        ->prependStylesheet($this->basePath() . '/css/slick.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css?v=1.1.1')
+                        ->prependStylesheet($this->basePath() . '/css/responsive.css?v=1.1.1') ?>
+
+        <!-- Scripts -->
+        <?php 
+        
+        if($this->nav == 'home') :
+            echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/owl.carousel.js')
+                ->prependFile($this->basePath() . '/js/helpers.js')
+                ->prependFile($this->basePath() . '/js/polyfills.js')
+                ->prependFile($this->basePath() . '/js/jssor.js?v=1.1.2')
+                ->prependFile($this->basePath() . '/js/jssor.slider.js')
+                ->prependFile($this->basePath() . '/js/slick.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js');
+        else :
+            echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/jquery.swipebox.min.js')
+                ->prependFile($this->basePath() . '/js/owl.carousel.js')
+                ->prependFile($this->basePath() . '/js/slick.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js');
+        endif;
+            
+         ?>
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+        
+        <!-- BEGIN: GOOGLE ANALYTICS CODE -->
+        <script type="text/javascript">
+        
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-127877-14']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        
+        </script>
+        <!-- END: GOOGLE ANALYTICS CODE -->
+        
+    <script type="application/ld+json">
+		{
+		  "@context": "http://schema.org",
+		  "@type": "LocalBusiness",
+		  "name": "Second City Roofing & Construction",
+		  "description": "Second City Roofing, a renowned Roofer in Chicago. Get the best value on Chicago roofing services, and warranty on the highest quality roofing and home improvement work from the best in Chicagoland.",
+		  "address": {
+			"@type": "PostalAddress",
+			 "streetAddress": "3006 W. Diversey Ave.",
+			 "addressLocality": "Chicago",
+			 "addressRegion": "IL",
+			 "postalCode": "60647"
+			},
+		  "telephone": "773-384-6300",
+		  "url": "http://www.secondcityconstruction.com/",
+		  "logo": "http://www.secondcityconstruction.com/img/roofing-chicago-il-300x188.jpg",
+			 "sameAs": [
+			 "https://plus.google.com/111821350411577755102?rel=author",
+			 "https://plus.google.com/117094283084277013386"
+			  ],
+		  "map": "https://www.google.com/maps/place/Second+City+Roofing/@41.932229,-87.702912,17z/data=!3m1!4b1!4m2!3m1!1s0x880fcd794e6b760d:0xc0f12c24121074c9?hl=en", 
+		  "geo": {
+			  "@type": "GeoCoordinates",
+			  "latitude": "41.932229",
+			  "longitude": "-87.702912"
+		  },
+		  "openingHours": "Mo-Fr 09:00-18:00"
+		}
+    </script>
+		
+		<script>
+			$(document).ready( function(){
+				
+				$('.btn_next').click( function(){
+					/* check if zip code is empty */
+					if( !$(".zip_code").val() ) {
+						$(".zip_code").css("border","solid 1px #f00" );	
+					} else {
+						$('.form_first_area').hide();
+						$('.form_second_area').show();			
+					}	
+				});				
+				
+				$('.submit').click( function() {
+					var zip_code = $('.zip_code').val();
+					var name = $('.user_name').val();
+					var phone_number = $('.phone_number').val();
+					
+					$.ajax({
+						type: "POST",
+						//url: "<?php echo $this->url('lp_roofing', array('page'=>'roofing.html', 'action'=>'lp')); ?>",
+						url: "<?php echo $this->basepath('/lp/roofing.html'); ?>",
+						data: {zip_code:zip_code,name:name,phone_number:phone_number},  
+						success: function() {
+							$('.form_first_area').hide();
+							$('.form_second_area').hide();		
+							$('.form_third_area').show();
+						}
+					});			
+				}); 
+			});
+		</script>		
+        <style>
+        
+        	.top-nav-video{ width: 232px;
+height: 140px;
+border: 3px solid #424141;
+display: inline-block;
+margin: 0px 50px 12px 50px;}
+.requestcontact{color: #000; border:3px solid #76b500;padding: 10px;}
+.requestcontact a { background:#76b500; border:1px solid #76b500;
+
+-webkit-box-shadow: 7px 7px 0px -5px #424141;
+-moz-box-shadow:7px 7px 0px -5px #424141;
+box-shadow: 7px 7px 0px -5px #424141;
+width: 80%;
+padding: 5px 5px;
+color: #fff;
+font-size: 19px;
+font-weight: 700;
+display: inline-block;
+
+}
+.requestcontact a:hover{ cursor:pointer; }
+.free-Estimate{ float:left; width:100%;}
+.free-Estimate a{ background: #e16819;
+padding: 16px 0px;
+font-size: 23px;
+font-weight: bold;
+display: inline-block;
+width: 100%;
+text-align: center;
+text-decoration: none;
+color: #fff;}
+        </style>		
+		
+    </head>
+    <body>
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+    var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+        
+        <section>
+            <div class="page">
+                <div class="hd-logo"><img src="<?=$this->basepath('img/logo.png')?>" alt="Second City Roofing" /></div>
+                
+             
+                <div class="top-nav-video"> <a href="//fast.wistia.net/embed/iframe/2xj73kgeg8?popover=true" id="TopVideoImg" class="wistia-popover[height=388,playerColor=7b796a,width=640]"><img src="<?=$this->basepath('img/video.jpg')?>" alt="Flat Roofing" /></a>
+                <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/popover-v1.js"></script>
+                </div>
+              <div class="hd-images">
+                    <ul><!--<li><img src="<?=$this->basepath('img/flat-roof-1.png')?>" alt="Flat Roofing" /></li>-->
+                       
+                        <li class="hd-action"><span class="hd-phone">773<br/>384-6300</span>
+                            <span class="hd-slogan">Family Owned and Operated<br/>For Over 35 Years</span>
+                        </li>
+                    </ul>
+                </div>
+                <a class="click-to-call" href="tel:+17733846300"><img src="<?=$this->basepath('img/icon-phone.png')?>" /> &nbsp; Tap To Call Us</a>
+            </div>
+        </section>
+        <section>
+            <div class="page">
+                <nav class="nav-top">
+                    <ul id="menu">
+                        <li class="nav-home"><a href="<?=$this->basepath('/')?>" <?php if($this->nav == 'home'){ echo 'class="active"'; }?>>HOME</a></li>
+                    </ul>
+                    <script>
+                	$(function(){
+                		$('#menu').slicknav();
+                	});
+                </script>
+                </nav>
+            </div>
+        </section>
+        
+			<?php echo $this->content; ?>
+			
+            
+                  
+       
+          
+        
+    </body>
+</html> 

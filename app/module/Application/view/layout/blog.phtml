@@ -1,0 +1,210 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="google-site-verification" content="1uFFFDjBZIsbgI8vQt80Vg7-XSlrr-Ijeo_7HWuurY8" />
+        <meta name="y_key" content="bcb271f746aed7a3" />
+        <?php echo $this->headTitle()->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+        <meta name="description" content="<?=$this->meta_description?>"/>
+        <meta name="keywords" content="<?=$this->meta_keywords?>"/>
+        <link rel="canonical" href="<?=$this->url?>" />
+        <link rel="author" href="https://plus.google.com/111821350411577755102"/>
+        <link rel="publisher" href="https://plus.google.com/117094283084277013386"/>
+        <meta name="google-site-verification" content="k0Ogk2Io0q4c99QWv1cxpqpzH0ojiY9y4uN1XZtafjY" />
+        <meta name="msvalidate.01" content="96FFAD62733EF561B224CAD480BFE5E2" />
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@Roofer_Chicago">
+        <meta name="twitter:description" content="Your First Choice For Roofing Chicago, IL. Get the best value, service, and warranty on the highest quality roofing work from the best in Chicago.">
+        <meta property='og:locale' content='en_US'/>
+  
+        <meta property="fb:admins" content="666335241"/>
+        <meta property="og:title" content="<?=$this->og_title?>"/>
+        <meta property="og:description" content="<?=$this->og_description?>"/>
+        <meta property="og:url" content="<?=$this->og_url?>"/>
+        <meta property="og:site_name" content="Second City Roofing & Construction" />
+        <meta property="og:image" content="<?=$this->og_image?>" />
+                
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/blog.css?v='.filemtime('./public/css/blog.css'))
+                        ->prependStylesheet($this->basePath() . '/css/slick.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/responsive.css') ?>             
+        <!-- Scripts -->
+        <?php 
+        
+        if($this->nav == 'home') :
+            echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/owl.carousel.js')
+                ->prependFile($this->basePath() . '/js/helpers.js')
+                ->prependFile($this->basePath() . '/js/polyfills.js')
+                ->prependFile($this->basePath() . '/js/jssor.js')
+                ->prependFile($this->basePath() . '/js/jssor.slider.js')
+                ->prependFile($this->basePath() . '/js/slick.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js');
+        else :
+            echo $this->headScript()
+                ->prependFile($this->basePath() . '/js/owl.carousel.js')
+                ->prependFile($this->basePath() . '/js/slick.js')
+                ->prependFile($this->basePath() . '/js/jquery.min.js');
+        endif;
+            
+         ?>
+        <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+        
+        <!-- BEGIN: GOOGLE ANALYTICS CODE -->
+        <script type="text/javascript">
+        
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-127877-14']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        
+        </script>
+        <!-- END: GOOGLE ANALYTICS CODE -->
+        
+        
+    
+    </head>
+    <body>
+    <!-- ClickTale Top part -->
+    <script type="text/javascript">
+    var WRInitTime=(new Date()).getTime();
+    </script>
+    <!-- ClickTale end of Top part -->
+        
+        <section>
+            <div class="page">
+                <div class="hd-logo"><img src="<?=$this->basepath('img/logo.png')?>" alt="Second City Roofing" /></div>
+                <div class="hd-images">
+                    <ul><li><img src="<?=$this->basepath('img/flat-roof-1.png')?>" alt="Flat Roofing" /></li>
+                        <li class="hd-image-2"><img src="<?=$this->basepath('img/flat-roof-2.png')?>" alt="Residential Roofing" /></li> 
+                        <li class="hd-action"><span class="hd-phone">773<br/>384-6300</span>
+                            <span class="hd-slogan">Family Owned and Operated<br/>For Over 45 Years</span>
+                        </li>
+                    </ul>
+                </div>
+                <a class="click-to-call" href="tel:+17733846300"><img src="<?=$this->basepath('img/icon-phone.png')?>" /> &nbsp; Tap To Call Us</a>
+            </div>
+        </section>
+        <section>
+            <div class="page">
+                <nav class="nav-top">
+                    <ul id="menu">
+                        <li class="nav-home"><a href="<?=$this->basepath('/')?>" <?php if($this->nav == 'home'){ echo 'class="active"'; }?>>HOME</a></li>
+                        <li class="nav-about <?php if($this->nav == 'about'){ echo 'active'; }?>"><a href="<?=$this->basepath('/about-chicago-roofer/')?>">ABOUT US</a></li>
+                        <li <?php if($this->nav == 'roofing'){ echo 'class="active"'; }?>><a href="<?=$this->basepath('/roofing-chicago/')?>">ROOFING SERVICES</a></li>
+                        <li><a href="<?=$this->basepath('/exterior-remodeling-chicago/')?>" <?php if($this->nav == 'exterior'){ echo 'class="active"'; }?>>EXTERIOR SERVICES</a></li>
+                        <li class="nav-contact <?php if($this->nav == 'contact'){ echo 'active'; }?>"><a href="<?=$this->basepath('/chicago-roofing-estimate-quote/')?>">CONTACT US</a></li>
+                        <li><a class="nav-quote" href="<?=$this->basepath('/chicago-roofing-estimate-quote/')?>">REQUEST QUOTE</a></li>
+                    </ul>
+                    <script>
+                	$(function(){
+                		$('#menu').slicknav();
+                	});
+                </script>
+                </nav>
+            </div>
+        </section>
+        
+        <?php 
+        
+            echo $this->content; 
+        ?>
+        
+        <section class="footer">
+            <div class="page">
+               <div class="footer-right">
+                    <div class="social">
+                    <ul><li><a href="https://www.facebook.com/roofing.chicago" target="_blank"><img src="<?=$this->basepath('img/icon-facebook.png')?>" /></a></li>
+                        <!--  <li><a href="#"></a><img src="<?=$this->basepath('img/icon-pinterest.png')?>" /></li>
+                        <li><a href="#"></a><img src="<?=$this->basepath('img/icon-google.png')?>" /></li> -->
+                    </ul>
+                    </div>
+                    <div class="direction">
+                        Contact us for a free quote:<br/>
+                        3006 W. DIVERSEY AVE.<br/>
+                        Chicago, IL 60647
+                    </div>
+               </div>
+               <div class="footer-nav">
+                   <ul>
+                        <li><a href="<?=$this->basepath('/')?>" <?php if($this->nav == 'home'){ echo 'class="active"'; }?>>HOME</a></li>
+                        <li class="nav-about"><a href="<?=$this->basepath('/about-chicago-roofer/')?>" <?php if($this->nav == 'about'){ echo 'class="active"'; }?>>ABOUT US</a></li>
+                        <li><a href="<?=$this->basepath('/roofing-chicago/')?>" <?php if($this->nav == 'roofing'){ echo 'class="active"'; }?>>ROOFING SERVICES</a></li>
+                        <li><a href="<?=$this->basepath('/exterior-remodeling-chicago/')?>" <?php if($this->nav == 'exterior'){ echo 'class="active"'; }?>>EXTERIOR SERVICES</a></li>
+                        <li class="nav-contact"><a href="<?=$this->basepath('/chicago-roofing-estimate-quote/')?>" <?php if($this->nav == 'contact'){ echo 'class="active"'; }?>>CONTACT US</a></li>
+                    </ul>
+                    <a href="#" class="go-to-top">BACK TO TOP</a>
+                </div>
+                
+                <script>
+                $(function () {
+                    $('.go-to-top').click(function () {
+                        $('html,body').animate({
+                            scrollTop: 0
+                        }, 500);
+                    return false;
+                    });
+                });
+                </script>
+                
+                <div class="copy">
+                    Copyright Second City Roofing & Construction, Inc. © 2012 All Rights Reserved.<br/> 
+                    <a href="https://plus.google.com/111821350411577755102?rel=author" target="_blank">Google Plus</a> | 3006 W. Diversey Ave. Chicago, IL 60647 | Phone: 773-384-6300<br/>
+                    <br/>
+                    <a href="http://www.secondcityconstruction.com/privacy-policy/">Privacy Policy</a>                    
+                </div>
+            </div>
+        </section>
+                  
+        <!-- ClickTale Bottom part -->
+        
+        <script type='text/javascript'>
+        // The ClickTale Balkan Tracking Code may be programmatically customized using hooks:
+        // 
+        //   function ClickTalePreRecordingHook() { /* place your customized code here */  }
+        //
+        // For details about ClickTale hooks, please consult the wiki page http://wiki.clicktale.com/Article/Customizing_code_version_2
+        
+        document.write(unescape("%3Cscript%20src='"+
+        (document.location.protocol=='https:'?
+        "https://cdnssl.clicktale.net/www/ptc/cd60d665-2ad2-4323-87d7-9c4b7ed0d45d.js":
+        "http://cdn.clicktale.net/www/ptc/cd60d665-2ad2-4323-87d7-9c4b7ed0d45d.js")+"'%20type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        
+        <script type="text/javascript">
+              var opt = [];
+              opt.push(['acc', 'wa-secondcity']);              
+              (function() {
+                var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+                wa.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'analytics.gowebvision.com/wa-v2/wa.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+              })();
+          </script> 
+          
+        <!-- ClickTale end of Bottom part -->
+        
+       
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K48PP7"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-K48PP7');</script>
+      
+ 
+    </body>
+</html>
