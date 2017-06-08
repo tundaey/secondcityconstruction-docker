@@ -1,0 +1,98 @@
+<?php $this->headTitle("Videos")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('videos', '', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Videos</h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="name">Video Script</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('videos'));
+                             $form_delete->prepare();
+                             
+                             echo $this->form()->openTag($form_delete);            
+                             echo '<div class="bulkaction">';
+                                 echo $this->formRow($form_delete->get('bulk_actions'));
+                                 echo $this->formSubmit($form_delete->get('submit'));
+                             echo '</div>';
+                                                          
+                             foreach ($this->videos as $q) : // load html                               
+                                echo '<tr class="alternate"><td><input type="checkbox" name="cb[]" value="'.$q->id.'" /></td><td class="row-title">'.$q->title.'</td><td class="row-title">'.$q->script.'</td></tr>'; 
+                             endforeach;
+                             ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="name">Video Script</th>
+                                </tr>
+                             </tfoot>
+                        </table>  
+                        <?php 
+                            echo '<div class="bulkaction">';
+                                echo $this->formRow($form_delete->get('bulk_actions'));
+                                echo $this->formRow($form_delete->get('bulk_action'));
+                                echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?>  
+                    </div>
+                    
+                    <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <h3>Add New Video</h3>
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('videos')); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                <?=$this->formRow($form_add->get('title'))?>
+                                <p>Enter title for your video.</p>
+                                    
+                                <?=$this->formRow($form_add->get('script'))?>
+                                <p>Enter script for your video.</p>
+                                     
+                                <?php
+                                	echo $this->formSubmit($form_add->get('submit'));
+                                	echo $this->form()->closeTag();
+                            	?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

@@ -1,0 +1,147 @@
+<?php $this->headTitle("Order #".$this->id)?>
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('products', 'orders', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Order #<?=$this->id?></h2>
+                <div class="poststuff">
+                    <div class="post-body columns-2">
+                   
+                    <?php 
+                        if($this->flashmessenger()->hasMessages()) :
+                            echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                        endif;
+                    ?>
+                    
+                   <div class="postbox-container">
+                        <div class="side-sortables">
+                            
+                            <div class="postbox">
+                                <h3 class="">Client</h3>
+									<div class="misc-pub-section">
+    									<br/>
+    									<table class="list-table widefat fixed tags" style="border: 0px !important;">
+    									   <tr><td>Name:</td><td><b><?=$this->order->fname?> <?=$this->order->lname?></b></td></tr>
+    									   <tr><td>Phone:</td><td><b><?=$this->order->phone?></b></td></tr>
+    									   <tr><td>Email:</td><td><b><?=$this->order->email?></b></td></tr>
+    									</table>
+									</div>
+                            </div>
+                            
+                            <div class="postbox">
+                                <h3 class="">Order</h3>
+									<div class="misc-pub-section">
+									<br/>
+									<table class="list-table widefat fixed tags" style="border: 0px !important;">
+    									<tr><td>Id:</td><td><b><?=$this->order->id?></b></td></tr>
+    									<tr><td>Amount:</td><td><b><?=$this->order->order_amount?></b></td></tr>
+    									<tr><td>Tax:</td><td><b><?=$this->order->order_tax?></b></td></tr>
+    									<tr><td>Auth.net Id:</td><td><b><?=$this->order->order_transaction_id?></b></td></tr>
+    									<tr><td>CC:</td><td><b><?=$this->order->order_cc?></b></td></tr>
+    									<tr><td>Date:</td><td><b><?=$this->order->date?></b></td></tr>
+									</table>
+									</div>
+                            </div>
+                            
+                        </div>
+                    </div>    
+                    
+                    <!-- LEFT -->
+                    <div class="post-body-content">
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb">#</th>
+                                    <th class="name">Product</th>
+                                    <th class="">Variation</th>
+                                    <th class="">Qty</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+	                            <?php
+	                            $c=0; $cat=''; $n = 1;
+	                            if($this->cart !== NULL) :
+	                            foreach ($this->cart as $k) :
+	                               if($c==0){$cc='alternate';$c=1;}else{$cc='alternate-2';$c=0;} // change color
+	                               
+	                               echo '<tr class="'.$cc.'">
+                                           <td class="cb">'.$n++.'</td>
+									       <td>'.$k['name'].'</td>
+									       <td>'.$k['sub'].'</td>
+									       <td>'.$k['qty'].'</td>
+								        </tr>';
+	                            endforeach;
+	                            else :
+	                               echo '<tr><td></td><td colspan="3">Order for <b>Tree Removal Only</b>. Yay, rudolph get to work =)</td></tr>';
+	                            endif;
+	                            ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb">#</th>
+                                    <th class="name">Product</th>
+                                    <th class="">Variation</th>
+                                    <th class="">Qty</th>
+                                </tr>
+                             </tfoot>
+                        </table>
+                    </div>  
+                    
+                    <div class="post-body-content">
+                        <h2>Delivery</h2>
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th>Day</th>
+                                    <th>Time</th>
+                                    <th>Address</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <tr><td><?=$this->order->del_day?></td>
+                                 <td><?=$this->order->del_time?></td>
+                                 <td><?=$this->order->del_address?>, <?=$this->order->del_zip?></td>
+                             </tr>
+                             <tr class="alternate"><td colspan="3"><?=$this->order->del_instructions?></td></tr>
+                             </tbody>
+                         </table>
+                    </div>
+                    
+                    <?php 
+                    if($this->order->rem_day !== NULL) :
+                    ?>
+                    <div class="post-body-content">
+                        <h2>Removal</h2>
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th>Day</th>
+                                    <th>Time</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <tr><td><?=$this->order->rem_day?></td>
+                                 <td><?=$this->order->rem_time?></td>
+                             </tr>
+                             <tr class="alternate"><td colspan="2"><?=$this->order->rem_instruction?></td></tr>
+                             </tbody>
+                         </table>
+                    </div>
+                  <?php
+                  endif; 
+                  ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

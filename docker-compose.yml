@@ -18,7 +18,7 @@ services:
       - mysql    
       
   mysql:
-    image: mysql:5.7
+    image: mysql:5.5
     volumes:
       - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     restart: always
@@ -27,7 +27,7 @@ services:
       - 3307:3306
     environment:
       MYSQL_ROOT_PASSWORD: KxLnMY8ySfHZ9V3C 
-      MYSQL_DATABASE: secondcityconstruction.com
+      MYSQL_DATABASE: secondcityconstructioncom
       MYSQL_USER: secondcity
       MYSQL_PASSWORD: KxLnMY8ySfHZ9V3C
     

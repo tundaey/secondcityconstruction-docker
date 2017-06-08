@@ -1,0 +1,161 @@
+<?php $this->headTitle("Category")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('products', 'category', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Product Categories</h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Name</th>
+                                    <th class="">Slug</th>
+                                    <th class="">Products</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('products', array("action"=>"category")));
+                             $form_delete->prepare();
+                             
+                             echo $this->form()->openTag($form_delete);            
+                             echo '<div class="bulkaction">';
+                                 echo $this->formRow($form_delete->get('bulk_actions'));
+                                 echo $this->formSubmit($form_delete->get('submit'));
+                             echo '</div>';
+                             
+                             if(count($this->category)>0) :
+                                 foreach ($this->category as $cat) :
+                                        $cs[] = array('name' => $cat->name, 'slug' => $cat->slug, 'category_id' => $cat->category_id, 'parent' => $cat->parent, 'position' => $cat->position);
+                                 endforeach;
+                             else :
+                                $cs = array();
+                             endif;
+                             
+                             $sub = '';
+                             foreach ($this->root_categories as $l) :
+                                  // count sub categories ... if no sub category then we can allow to delete
+                                 foreach ($cs as $s) :
+                                     if($l->category_id == $s['parent']) :
+                                        $sub .= '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$s['category_id'].'" /></td><td> <a class="row-title" href="'.$this->url('products', array("action"=>"category-edit","id"=>$s['category_id'])).'">&#9472; &nbsp; '.$s['name'].'</td><td>'.$s['slug'].'</a></td><td>0</td><td>'.$s['position'].'</td></tr>';
+                                     endif;
+                                 endforeach;
+                                 if($sub == '') :
+                                    echo '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$l->category_id.'" /></td><td class="row-title"><a class="row-title" href="'.$this->url('products', array("action"=>"category-main-edit","id"=>$l->category_id)).'">'.$l->name.'</a></td><td>'.$l->slug.'</td><td></td><td>'.$l->position.'</td></tr>';
+                                 else :
+                                    echo '<tr class="alternate"><td></td><td class="row-title"><a class="row-title" href="'.$this->url('products', array("action"=>"category-main-edit","id"=>$l->category_id)).'">'.$l->name.'</a></td><td>'.$l->slug.'</td><td></td><td>'.$l->position.'</td></tr>';
+                                    echo $sub;
+                                 endif;
+                                 $sub = '';
+                             endforeach;
+                             
+                             /*
+                             foreach ($this->category as $cat) : // sort
+                                 if ($cat->parent == 0) :
+                                 	    $category_list[$cat->category_id] = array('name' => $cat->name, 'slug' => $cat->slug, 'category_id' => $cat->category_id);
+                                 else : // load sub categories
+                                        $category_list[$cat->parent]['list'][$cat->category_id]['name'] = $cat->name;
+                                        $category_list[$cat->parent]['list'][$cat->category_id]['slug'] = $cat->slug;
+                                        $category_list[$cat->parent]['list'][$cat->category_id]['category_id'] = $cat->category_id;
+                                 endif; // $cat->parent   
+                             endforeach;
+                             
+                             var_dump($category_list);
+                             
+                             if(isset($category_list) && is_array($category_list)) :
+                                 foreach ($category_list as $cl) : // load html                       
+                                    if(isset($cl['list']) && is_array($cl['list'])) :
+                                        echo '<tr class="alternate"><td></td><td class="row-title"><a class="row-title" href="'.$this->url('products', array("action"=>"category-main-edit","id"=>$cl['category_id'])).'">'.$cl['name'].'</a></td><td>'.$cl['slug'].'</td><td></td></tr>';
+                                        foreach($cl['list'] as $list) : // load sub categories
+                                            $count = (isset($this->cat_count[$list['category_id']])) ? count($this->cat_count[$list['category_id']]) : 0;
+                                            echo '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$list['category_id'].'" /></td><td> <a class="row-title" href="'.$this->url('products', array("action"=>"category-edit","id"=>$list['category_id'])).'">&#9472; &nbsp; '.$list['name'].'</td><td>'.$list['slug'].'</a></td><td>'.$count.'</td></tr>';
+                                        endforeach;
+                                   else : 
+                                        echo '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$cl['category_id'].'" /></td><td class="row-title"><a class="row-title" href="'.$this->url('products', array("action"=>"category-main-edit","id"=>$cl['category_id'])).'">'.$cl['name'].'</a></td><td>'.$cl['slug'].'</td><td></td></tr>';
+                                        echo '<tr class="alternate"><td></td><td>Please add category</td><td></td><td></td></tr>';
+                                   endif; 
+                                 endforeach;
+                             else :
+                                echo '<tr class="alternate"><td></td><td>Please add category</td><td></td><td></td></tr>';
+                             endif;
+                             */
+                             ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Name</th>
+                                    <th class="">Slug</th>
+                                    <th class="">Products</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </tfoot>
+                        </table>  
+                        <?php 
+                            echo '<div class="bulkaction">';
+                            echo $this->formRow($form_delete->get('bulk_actions'));
+                            echo $this->formRow($form_delete->get('bulk_action'));
+                            echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?>  
+                    </div>
+                    
+                    <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <h3>Add New Category</h3>
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('products', array("action"=>"category"))); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                    
+                                <?=$this->formRow($form_add->get('name'))?>
+                                <p>The name is how it appears on your site.</p>
+                                
+                                <?=$this->formRow($form_add->get('slug'))?>
+                                <p>The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.</p>
+                                
+                                <?=$this->formRow($form_add->get('parent'))?>
+                                <p>Categories have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.</p>
+                                
+                                <?=$this->formRow($form_add->get('position'))?>
+                                <p>Category order in your cart.</p>
+                                
+                                <?php
+                                	echo $this->formSubmit($form_add->get('submit'));
+                                	echo $this->form()->closeTag();
+                            	?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

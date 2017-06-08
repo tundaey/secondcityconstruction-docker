@@ -1,0 +1,60 @@
+<?php $this->headTitle("Settings") ?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('settings', 'social', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Settings</h2> 
+                <div class="col-container">                     
+                    <div class="col-left">
+                    <?php 
+                        if($this->flashmessenger()->hasMessages()) :
+                            echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                        endif;
+                     
+                        $form = $this->form;
+                        $form->setAttribute('action', $this->url('settings', array('action'=>'social')));
+                        $form->prepare();
+                        echo $this->form()->openTag($form);
+                    ?>
+                    <table class="form-table">  
+            		<tbody>    
+            		  <tr class="form-field form-required">
+            			<th scope="row"><label for="name">Facebook</label></th> 
+            			<td><?=$this->formRow($form->get('facebook'))?>
+            			<p class="description">Link to your facebook account.</p></td>
+            		  </tr>
+            		  <tr class="form-field form-required">
+            			<th scope="row"><label for="name">Twitter</label></th> 
+            			<td><?=$this->formRow($form->get('twitter'))?>
+            			<p class="description">Link to your twitter account.</p></td>
+            		  </tr>  
+            		  <tr class="form-field form-required">
+            			<th scope="row"><label for="name">Youtube</label></th>
+            			<td><?=$this->formRow($form->get('youtube'))?>
+            			<p class="description">Link to your youtube account.</p></td>
+            		  </tr>
+            		  <tr class="form-field form-required">
+            			<th scope="row"><label for="name">Pintrest</label></th>
+            			<td><?=$this->formRow($form->get('pintrest'))?>
+            			<p class="description">Link to your pintrest account.</p></td>
+            		  </tr>
+            		  <tr class="form-field form-required"> 
+            			<th scope="row"></th>
+            			<td><?=$this->formRow($form->get('submit'))?></td>
+            		  </tr>
+            		 </tbody>
+            		</table> 
+            		<?php
+            		  echo $this->form()->closeTag();
+            		?>  
+            		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

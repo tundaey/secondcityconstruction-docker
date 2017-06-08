@@ -1,0 +1,99 @@
+<?php $this->headTitle("Promo")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('products', 'promo', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Promo</h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Name</th>
+                                    <th class="name">Percent</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('products', array("action"=>"promo"))); 
+                             $form_delete->prepare();
+                             
+                             echo $this->form()->openTag($form_delete);            
+                             echo '<div class="bulkaction">';
+                                 echo $this->formRow($form_delete->get('bulk_actions'));
+                                 echo $this->formSubmit($form_delete->get('submit'));
+                             echo '</div>';
+                                                          
+                             foreach ($this->links as $q) : // load html                               
+                                echo '<tr class="alternate"><td><input type="checkbox" name="cb[]" value="'.$q->id.'" /></td><td class="row-title">'.$q->name.'</td><td class="row-title">'.$q->percent.'</td></tr>'; 
+                             endforeach;
+                             ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Name</th>
+                                    <th class="name">Percent</th>
+                                </tr>
+                             </tfoot>
+                        </table>  
+                        <?php 
+                            echo '<div class="bulkaction">';
+                                echo $this->formRow($form_delete->get('bulk_actions'));
+                                echo $this->formRow($form_delete->get('bulk_action'));
+                                echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?>  
+                    </div>
+                    
+                    <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <h3>Add New Promo</h3>
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('products', array("action"=>"promo"))); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                  
+                                <?=$this->formRow($form_add->get('name'))?>
+                                <p>Enter the name for your promotion</p>
+                                  
+                                <?=$this->formRow($form_add->get('percent'))?>
+                                <p>Percent amount: 10 (%)</p>
+                                     
+                                <?php
+                                	echo $this->formSubmit($form_add->get('submit'));
+                                	echo $this->form()->closeTag();
+                            	?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

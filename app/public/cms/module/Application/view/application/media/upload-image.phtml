@@ -1,0 +1,8 @@
+<?php
+// displaying file
+$array = array(
+		'filelink' => 'http://cms.'.$this->config['website']['uri'].'/media/'.$this->config['website']['media'].'/img/'.$this->filename
+);
+
+echo stripslashes(json_encode($array));
+?>

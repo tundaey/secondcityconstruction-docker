@@ -1,0 +1,24 @@
+<?php $this->headTitle("Log In") ?>
+
+<div class="login">
+    <h1><?=$this->config['website']['site_name']?></h1>
+    <?php
+    	$form = $this->form;
+    	$form->setAttribute('action', $this->url('home')); 
+    	$form->prepare();
+    	
+    	echo $this->form()->openTag($form);
+    	
+    	if($this->messages != '') :
+    	   echo '<div style="padding: 0 10px 10px; text-align: center; color: red;">'.$this->messages.'</div>';
+    	endif;
+    	//if($this->flashMessenger())
+    	 //'Supplied credential is invalid.';
+    	echo $this->formRow($form->get('usr_email'));
+    	echo $this->formRow($form->get('usr_password'));
+    	echo $this->formRow($form->get('captcha'));
+    	echo $this->formSubmit($form->get('submit'));
+    	echo $this->form()->closeTag();
+	?>	
+	<h5 class="text-center"><a href="http://www.gowebvision.com/" target="_blank">Power by WebVision</a></h5>
+</div>

@@ -1,0 +1,130 @@
+<?php $this->headTitle("All Posts")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('posts', 'all', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Posts
+                    <a class="add-new-h2" href="<?=$this->url('posts', array('action'=>'new'))?>">Add New</a>
+                </h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="tablenav top">
+	                <ul class="subsubsub">
+	                	<?php
+							$all = ($option=='all')?$all='current':$all='';
+							$published = ($option=='published')?$published='current':$published='';
+							$draft = ($option=='draft')?$draft='current':$draft='';
+							$trash = ($option=='trash')?$trash='current':$trash='';
+						?>
+							<li class="all"><a class="<?=$all?>" href="<?=$this->url('posts', array('action'=>'all'))?>">All <span class="count">(<?=$this->all->count?>)</span></a> |</li>						
+						<?php 
+							if($this->published->count != '') :
+						?>
+							<li class="publish"><a class="<?=$published?>" href="<?=$this->url('posts', array('action'=>'all', 'id'=>'published'))?>">Published <span class="count">(<?=$this->published->count?>)</span></a> |</li>
+						<?php 
+							endif;
+							if($this->draft->count != '') :
+						?>
+							<li class="publish"><a class="<?=$draft?>" href="<?=$this->url('posts', array('action'=>'all', 'id'=>'draft'))?>">Draft <span class="count">(<?=$this->draft->count?>)</span></a> |</li>
+						<?php 
+							endif;
+							if($this->trash->count != '') :
+						?>
+							<li class="trash"><a class="<?=$trash?>" href="<?=$this->url('posts', array('action'=>'all', 'id'=>'trash'))?>">Trash <span class="count">(<?=$this->trash->count?>)</span></a></li>
+						<?php 
+							endif;
+						?>
+					</ul>
+				</div>
+                <div class="col-container">                    
+                    
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="">Categories</th>
+                                    <th class="">Date</th>
+                                    <th class="">Status</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+	                            <?php 
+		                            $form = $this->form;
+		                            $form->setAttribute('action', $this->url('posts', array("action"=>"all", 'id'=>$this->option)));
+		                            $form->prepare();		                             
+		                            echo $this->form()->openTag($form);
+		                            
+		                            echo '<div class="bulkaction">';
+		                            	echo '<div class="bulkresults">'.count($this->posts).' result(s)</div>';
+			                            echo $this->formRow($form->get('bulk_actions'));
+			                            echo $this->formSubmit($form->get('submit'));
+		                            echo '</div>';
+	                            
+	                            	$c=0; $cat='';
+		                            foreach ($this->posts as $post) : // load html
+	                            		if($c==0){$cc='alternate';$c=1;}else{$cc='alternate-2';$c=0;} // change color
+		                            	if(is_array($post['categories'])) : // load categories
+		                            	        $cat .= 'Blog: ';
+											foreach ($post['categories'] as $cs) :
+												$cat .= '<a href="'.$this->url('posts', array('action'=>'category-edit', 'id'=>$cs['category_id'])).'">'.$cs['name'].'</a>, ';
+											endforeach;
+		                            	else :
+		                            	    if($post['type'] == 'disclaimer') :
+		                            	        $cat = 'Disclaimer';
+		                            	    elseif($post['type'] == 'page') :
+		                            	        $cat = 'Page';
+		                            	    else :
+		                            		    $cat = 'Uncategorized';
+		                            	    endif;
+										endif;
+										$title = ($post['title']=='')? '(no title)' : $post['title']; // check for post title
+										$link = ($this->option != 'trash')? '<a class="row-title" href="'.$this->url('posts', array("action"=>"edit","id"=>$post['post_id'])).'">'.$title.'</a>' : $title;
+										$rights = ($post['rights'] == 1) ? '' : '<input type="checkbox" name="cb[]" value="'.$post['post_id'].'" />';
+										echo '<tr class="'.$cc.'"><td class="cb">'.$rights.'</td><td>'.$link.'</td><td>'.$cat.'</td><td>'.date("M d, Y @ h:i A", strtotime($post['date'])).'</a></td><td>'.ucfirst($post['status']).'</td></tr>'; $cat = '';
+		                            endforeach;
+	                            ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="">Categories</th>
+                                    <th class="">Date</th>
+                                    <th class="">Status</th>
+                                </tr>
+                             </tfoot>
+                        </table>
+                        	<?php 
+	                        	echo '<div class="bulkaction">';
+		                        	echo '<div class="bulkresults">'.count($this->posts).' result(s)</div>';
+		                        	echo $this->formRow($form->get('bulk_actions'));
+		                        	echo $this->formRow($form->get('bulk_action'));
+		                        	echo $this->formSubmit($form->get('submit'));
+	                        	echo '</div>';
+	                        	
+	                        	echo $this->form()->closeTag();
+                        	?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

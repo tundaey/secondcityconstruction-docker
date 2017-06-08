@@ -1,0 +1,318 @@
+<?php $this->headTitle("Edit Blog Post")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('posts', 'all', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+	<div class="body">
+		<div class="body-content" tabindex="0" style="overflow: hidden;">
+			<div class="wrap">
+				<h2>Edit Post</h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="poststuff">
+					<div id="post-body" class="post-body columns-2">
+                         <?php
+                             $form = $this->form;
+                             $form->setAttribute('action', $this->url('posts', array("action"=>"edit", "id"=>$this->id)));
+                             $form->prepare();
+                             echo $this->form()->openTag($form);
+                         ?>
+                        <div class="post-body-content">
+							<div class="titlediv">
+								<div class="titlewrap">
+                                    <?php 
+                                        if($this->post->title == '') :
+                                            echo '<label id="title-prompt-text" class="title-prompt-text" for="title">Enter title here</label>';
+                                            echo $this->formRow($form->get('title'));
+                                        else :
+                                            echo '<label id="title-prompt-text" class="title-prompt-text" for="title"></label>';
+                                            echo $this->formRow($form->get('title'));
+                                        endif;
+                                    ?>
+                                </div>
+							</div>
+							<div class="urldiv">
+							         <div class="http">http://<?=$this->config['website']['uri']?>/</div><?=$this->formrow($form->get('uri'))?>
+					         </div>
+							<div>
+                                <?=$this->formrow($form->get('content'))?>
+                            </div>
+						</div>
+
+						<div class="postbox-container">
+							<div class="side-sortables">
+								<div class="postbox">
+									<h3 class="">Publish</h3>
+									<div class="inor-publishing-actions">
+										<div>
+											<input type="submit" class="button-secondary" value="Save Draft" id="save-post" name="save">
+										</div>
+									</div>
+									<div id="misc-publishing-actions" class="misc-pub-section">
+										<label for="post_status">Status:</label> <span id="post-status-display"><?=ucfirst($this->post->status)?></span>
+									</div>
+									<div class="misc-pub-section misc-pub-revisions">
+										Revisions: <b><?=$this->posts->count?></b> <a href="<?=$this->url('posts', array('action'=>'revision', 'id'=>$this->post_current->post_id))?>" class="hide-if-no-js browse"><span>Browse</span></a>
+									</div>
+									<div id="misc-publishing-actions" class="misc-pub-section curtime misc-pub-curtime">
+										<span id="timestamp">Publish on: <b id="timestampdate"><?=date("M d, Y @ h:i", strtotime($this->post->date))?></b></span> <a id="edit-post-status" class="edit-post-status" href="#edit_timestamp">Edit</a>
+
+										<div id="timestamp-wrap" class="timestamp-wrap">
+                                            <?php 
+                                            	echo $this->formrow($form->get('mm'));
+                                            	echo $this->formrow($form->get('jj'));
+                                                echo $this->formrow($form->get('aa')).' @ ';
+                                                echo $this->formrow($form->get('hh')).' : ';
+                                                echo $this->formrow($form->get('mn'));
+                                            ?>
+                                            <p>
+												<a id="update-timestamp" class="save-timestamp button-secondary">OK</a> <a id="cancel-timestamp" class="cancel-timestamp hide-if-no-js button-cancel" href="#edit_timestamp">Cancel</a>
+											</p>
+										</div>
+									</div>
+									<div class="major-publishing-actions">
+										<div class="delete-action">
+											<a href="<?=$this->url('posts', array('action'=>'trash', 'id'=>$this->post->post_id))?>" class="submitdelete">Move to Trash</a>
+										</div>
+										<div class="publishing-action">
+                                            <?=$this->formSubmit($form->get('submit'))?>
+                                        </div>
+									</div>
+								</div>
+
+								<div class="postbox">
+									<h3 class="">Page Attributes</h3>
+									<div class="misc-publishing-actions">									   
+                                        <?php // checked
+                                        foreach ($this->category as $cat) : // sort
+                                            if ($cat->parent == 0) :
+                                                $category_list[$cat->category_id] = array('name' => $cat->name, 'slug' => $cat->slug);
+                                            else : // load sub categories
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['name'] = $cat->name;
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['slug'] = $cat->slug;
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['category_id'] = $cat->category_id;
+                                            endif; // $cat->parent
+                                        endforeach;
+                                        
+                                        echo '<ul><li>'.$this->formrow($form->get('type')).'</li></ul>';
+                                        
+        							    $blog = ($this->post->type=='post')? 'display: block' : '';
+        							    
+                                        echo '<ul class="misc-categories" style="'.$blog.'">';
+                                        foreach ($category_list as $cl) : // load html
+                                                echo '<li><b>'.$cl['name'].'</b></li>';
+                                            foreach($cl['list'] as $list) : // load sub categories
+	                                            if(count($this->category_selected) > 0) :
+		                                            foreach ($this->category_selected as $cs) :
+		                                            	if($list['category_id'] == $cs['category_id']) : $check = 'checked="checked"'; break; else : $check = ""; endif;
+		                                            endforeach;
+		                                        else :
+		                                        	$check = '';
+		                                        endif;
+	                                            echo '<li><input type="checkbox" name="cb[]" value="'.$list['category_id'].'" '.$check.' />'.$list['name'].'</li>';
+                                            endforeach;
+                                        endforeach;
+                                        echo '</ul>';
+                                        ?>
+                                       
+                                    </div>
+								</div>
+								
+								<div class="postbox">
+									<h3 class="">Featured Image</h3>
+									<div class="feat-publishing-actions">
+									   <?php  echo $this->formrow($form->get('feat_image')); ?>                                  
+                                    </div>
+								</div>
+								
+								<?php 
+								    if($user->usr_id == 21) :
+								?>
+    								<div class="postbox">
+    									<h3 class="">Options</h3>
+    									<div class="misc-publishing-actions">	
+    									   <ul>
+    									       <li><?php  echo $this->formrow($form->get('rights')); ?></li>
+    									   </ul>
+    									                                     
+                                        </div>
+    								</div>
+								<?php 
+								    else :
+								        echo $this->formrow($form->get('rights'));
+								    endif;
+								?>
+							</div>
+						</div>
+
+						<div class="post-body-content">
+							<h3>Keywords</h3>
+							<div class="titlewrap">
+                                <?php 
+                                    if($this->post->keyword == '') :
+                                        echo '<label id="keyword-prompt-text" class="title-prompt-text" class="" for="keyword">Focus Keyword</label>';
+                                        echo $this->formrow($form->get('keyword'));
+                                    else :
+                                        echo '<label id="keyword-prompt-text" class="title-prompt-text" class="" for="keyword"></label>';
+                                        echo $this->formrow($form->get('keyword'));
+                                    endif;
+                                ?>
+                            </div>
+							<h3>Excerpt <span>(about <?=$this->config['website']['blog_excerpt']?>)</span></h3>
+							<div class="titlewrap">
+                                <?php 
+                                    if($this->post->excerpt == '') :
+                                        echo '<label id="excerpt-prompt-text" class="title-prompt-text" class="" for="excerpt">Short extract from a writing</label>';
+                                        echo $this->formrow($form->get('excerpt'));
+                                    else :
+                                        echo '<label id="excerpt-prompt-text" class="title-prompt-text" class="" for="excerpt"></label>';
+                                        echo $this->formrow($form->get('excerpt'));
+                                    endif;
+                                ?>
+                            </div>
+						</div>
+                        <?php 
+                            echo $this->formrow($form->get('status'));
+                            echo $this->formrow($form->get('parent'));
+                            echo $this->formrow($form->get('post_id'));
+                            echo $this->formrow($form->get('date'));
+                            echo $this->form()->closeTag();
+                        ?>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- feature image -->
+<div style="position: fixed; top: 50%; left: 50%; width: 610px; margin-left: -335px; height: auto; min-height: auto; margin-top: -197.5px; display: none;" class="feat_img">
+    <div class="redactor_modal_close">×</div>
+    <div class="redactor_modal_header">Insert Image</div>
+    <div class="redactor_modal_inner">
+    	<div class="redactor_modal_content">
+    		<div class="redactor_tabs">
+    			<a href="javascript:void(null);" class="redactor_tabs_act">Upload</a><a href="javascript:void(null);">Choose</a><a href="javascript:void(null);">Link</a>
+    		</div>
+    		<form class="redactorInsertImageForm" method="post" action="" enctype="multipart/form-data">
+    			<div class="redactor_tab1" class="redactor_tab">
+    				<div class="redactor_droparea">
+    					<div class="redactor_dropareabox">Drop file here</div>
+    				</div>
+    				<div class="redactor_dropalternative">Or choose</div>
+    				<input class="redactor_file" name="file" type="file">
+    			</div>
+    			<div class="redactor_tab2" class="redactor_tab" style="display: none;">
+    				<div class="redactor_image_box">
+    					<img src="http://cms.projectwellnessnow.com/media/1/img/1.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/1.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/1_m.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/1_m.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/2.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/2.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/2_m.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/2_m.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/3.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/3.jpg" title=""><img
+    						src="http://cms.projectwellnessnow.com/media/1/img/3_m.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/3_m.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/4.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/4.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/4_m.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/4_m.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/5.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/5.jpg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/5_m.jpg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/5_m.jpg" title=""><img
+    						src="http://cms.projectwellnessnow.com/media/1/img/be102e06b62c74ab17f83c2aba040bde.jpeg" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/be102e06b62c74ab17f83c2aba040bde.jpeg" title=""><img src="http://cms.projectwellnessnow.com/media/1/img/f1b4288d6b4eb1ccea718efbd4a4ab74.png" class="redactorfolder redactorfolder0" rel="http://cms.projectwellnessnow.com/media/1/img/f1b4288d6b4eb1ccea718efbd4a4ab74.png" title="">
+    				</div>
+    			</div>
+    		</form>
+    		<div class="redactor_tab3" class="redactor_tab" style="display: none;">
+    			<label>Image Web Link</label><input name="redactor_file_link" id="redactor_file_link" class="redactor_input" type="text">
+    		</div>
+    	</div>
+    	<div id="redactor_modal_footer">
+    		<a href="javascript:void(null);" class="redactor_modal_btn redactor_btn_modal_close">Cancel</a><input name="upload" class="redactor_modal_btn" id="redactor_upload_btn" value="Insert" type="button">
+    	</div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(
+
+	
+	function()
+	{
+		// redactor
+		$('#redactor_content').redactor({
+			imageUpload: '<?=$this->basepath('media/upload-image')?>',
+			fileUpload: '<?=$this->basepath('media/upload-file')?>',
+			imageGetJson: '<?=$this->basepath('media/data')?>'
+		});
+
+		$('#redactor_content2').redactor({
+			buttons: ['image'],
+			imageUpload: '<?=$this->basepath('media/upload-image')?>',
+			fileUpload: '<?=$this->basepath('media/upload-file')?>',
+			imageGetJson: '<?=$this->basepath('media/data')?>'
+		});
+		
+		// title
+		$("#title").focusin(function(){
+			$("#title-prompt-text").html('');
+		});
+		$("#title").focusout(function(){
+			if($("#title").val()=='') {
+			    $("#title-prompt-text").html('Enter title here');
+			}
+		});
+		// title
+		$("#keyword").focusin(function(){
+			$("#keyword-prompt-text").html('');
+		});
+		$("#keyword").focusout(function(){
+			if($("#keyword").val()=='') {
+			    $("#keyword-prompt-text").html('Focus Keyword');
+			}
+		});
+		// excerpt
+		$("#excerpt").focusin(function(){
+			$("#excerpt-prompt-text").html('');
+		});
+		$("#excerpt").focusout(function(){
+			if($("#excerpt").val()=='') {
+			    $("#excerpt-prompt-text").html('Short Extract From A Writing');
+			}
+		});
+		// draft
+		$("#save-post").click(function(){ 
+			$("#draft").val('draft');
+		});
+		// publish
+		$("#publish").click(function(){ 
+			$("#draft").val('published');
+		});
+		// time
+		$("#edit-post-status").click(function(){ // open
+			$("#edit-post-status").animate({ opacity: 1, height: "hide" }, 0, function() { });  	
+		    $("#timestamp-wrap" ).animate({ opacity: 1, height: "toggle" }, 400, function() { }); 
+		});
+		$("#cancel-timestamp").click(function(){ // close
+			$("#edit-post-status").animate({ opacity: 1, height: "toggle" }, 0, function() { });  	
+		    $("#timestamp-wrap" ).animate({ opacity: 0, height: "hide" }, 400, function() { }); 
+		});
+		// date
+		$("#update-timestamp").click(function(){
+			var day = $("#jj").val();
+			var month = $("#mm option:selected").text();
+		    var year = $("#aa").val();
+		    var min = $("#mm").val();
+		    var hour = $("#hh").val();
+		   $("#timestampdate").html(month.substring(3)+' '+day+', '+year+' @ '+hour+':'+min);
+		   $("#edit-post-status").animate({ opacity: 1, height: "toggle" }, 0, function() { });  	
+		   $("#timestamp-wrap" ).animate({ opacity: 0, height: "hide" }, 400, function() { });
+		});       
+		// type
+		$("#type").change(function()
+		{
+		    if($('#type option:selected').val()=='post')
+		    {
+			    $(".misc-categories").css('display','block');
+		    }
+		      else
+			{
+		    	$(".misc-categories").css('display','none');
+			}
+				
+		});  
+	}
+);
+</script>

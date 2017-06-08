@@ -1,0 +1,78 @@
+<?php $this->headTitle("Edit Product")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('products', '', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Edit Product</h2>
+                <?php
+                	$form = $this->form;
+                	$form->setAttribute('action', $this->url('products', array("action"=>"edit", "id"=>$this->id))); 
+                	$form->prepare();
+                	echo $this->form()->openTag($form);
+                ?>
+                <table class="form-table">
+        		<tbody>
+        		  <?php // this is for product image
+                		  if($this->product->image != '') :
+                		  ?>
+                		  <tr class="form-required">
+                			<th scope="row"><label for="name">Current Image</label></th>
+                			<td><img src="<?=$this->basepath('/media/'.$this->config['website']['media'].'/product/'.$this->product->image)?>" />
+                			<p class="description">Current image for your category.</p></td>
+                		  </tr>
+                		  <?php 
+                		  endif;
+            		  ?>
+        		  <tr class="form-required">
+        			<th scope="row"><label for="name">Image</label></th>
+        			<td><?=$this->formRow($form->get('image'))?>
+        			<p class="description">Add image for your product.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Product Name</label></th>
+        			<td><?=$this->formRow($form->get('name'))?>
+        			<p class="description">Product Name for your checkout and email.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Price</label></th>
+        			<td><?=$this->formRow($form->get('price'))?>
+        			<p class="description">Product price in the cart.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Qty</label></th>
+        			<td><?=$this->formRow($form->get('qty'))?>
+        			<p class="description">Product quantity. Use -1 for unlimited supply.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Product Description</label></th>
+        			<td><?=$this->formRow($form->get('description'))?>
+        			<p class="description">Description appears under prduct name.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Cart Position</label></th>
+        			<td><?=$this->formRow($form->get('position'))?>
+        			<p class="description">Product position in cart.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Product Category</label></th>
+        			<td><?=$this->formRow($form->get('category_id'))?><?=$this->formRow($form->get('cat_rel_id'))?>
+        			<p class="description">Default category for your product.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"></th>
+        			<td><?=$this->formRow($form->get('submit'))?></td>
+        		  </tr>
+        		 </tbody>
+        		</table>
+        		<?php 
+        		  echo $this->form()->closeTag();
+        		?>
+            </div>
+        </div>
+    </div>
+</div>

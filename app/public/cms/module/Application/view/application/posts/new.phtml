@@ -1,0 +1,216 @@
+<?php $this->headTitle("New Blog Post")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('posts', 'new', $this->basepath("/"));?>
+</div>
+        
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Add New Post</h2>
+                <div class="poststuff">
+                    <div class="post-body columns-2">
+                         <?php
+                             $form = $this->form;
+                             $form->setAttribute('action', $this->url('posts', array("action"=>"new")));
+                             $form->prepare();
+                             echo $this->form()->openTag($form);
+                         ?>
+                        <div class="post-body-content">
+                            <div class="titlediv">
+                                <div class="titlewrap">
+                                    <label id="title-prompt-text" class="title-prompt-text" for="title">Enter title here</label>
+                                    <?=$this->formRow($form->get('title'))?>
+                                </div>
+                            </div>
+                            <div>
+                                <?=$this->formrow($form->get('content'))?>
+                            </div>
+                        </div>
+                        
+                        <div class="postbox-container">
+                            <div class="side-sortables">
+                                <div class="postbox">
+                                    <h3 class="">Publish</h3>
+                                    <div class="inor-publishing-actions">
+                                        <div>
+                                            <input type="submit" class="button-secondary" value="Save Draft" id="save-post" name="save">
+                                        </div>
+                                    </div>
+                                    <div id="misc-publishing-actions" class="misc-pub-section">
+                                        <label for="post_status">Status:</label>
+                                        <span id="post-status-display">Draft</span>
+                                    </div>
+                                    <div id="misc-publishing-actions" class="misc-pub-section curtime misc-pub-curtime">
+                                        <span id="timestamp">Publish on: <b id="timestampdate">immediately</b></span>
+                                        <a id="edit-post-status" class="edit-post-status" href="#edit_timestamp">Edit</a>
+                                        
+                                        <div id="timestamp-wrap" class="timestamp-wrap">
+                                            <?php 
+                                            	echo $this->formrow($form->get('mm'));
+                                            	echo $this->formrow($form->get('jj'));
+                                                echo $this->formrow($form->get('aa')).' @ ';
+                                                echo $this->formrow($form->get('hh')).' : ';
+                                                echo $this->formrow($form->get('mn'));
+                                            ?>
+                                            <p>
+                                                <a id="update-timestamp" class="save-timestamp button-secondary">OK</a>
+                                                <a id="cancel-timestamp" class="cancel-timestamp hide-if-no-js button-cancel" href="#edit_timestamp">Cancel</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="major-publishing-actions">
+                                        <div class="delete-action">
+                                            
+                                        </div>
+                                        <div class="publishing-action">
+                                            <?=$this->formSubmit($form->get('submit'))?>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="postbox">
+                                    <h3 class="">Page Attributes</h3>
+                                    <div class="misc-publishing-actions">
+                                        <?php 
+                                        foreach ($this->category as $cat) : // sort
+                                            if ($cat->parent == 0) :
+                                                $category_list[$cat->category_id] = array('name' => $cat->name, 'slug' => $cat->slug);
+                                            else : // load sub categories
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['name'] = $cat->name;
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['slug'] = $cat->slug;
+                                                $category_list[$cat->parent]['list'][$cat->category_id]['category_id'] = $cat->category_id;
+                                            endif; // $cat->parent
+                                        endforeach;
+                                        
+                                        echo '<ul><li>'.$this->formrow($form->get('type')).'</li></ul>';
+                                        
+                                        echo '<ul class="misc-categories">'; 
+                                        foreach ($category_list as $cl) : // load html
+                                                echo '<li><b>'.$cl['name'].'</b></li>';
+                                            foreach($cl['list'] as $list) : // load sub categories
+                                                echo '<li><input type="checkbox" name="cb[]" value="'.$list['category_id'].'" />'.$list['name'].'</li>';
+                                            endforeach;
+                                        endforeach;
+                                        echo '</ul>';
+                                        ?>
+                                    </div>
+                                </div>
+                                
+                                <div class="postbox">
+									<h3 class="">Featured Image</h3>
+									<div class="feat-publishing-actions">
+									   <?php  echo $this->formrow($form->get('feat_image')); ?>                                  
+                                    </div>
+								</div>
+								
+                            </div>
+                        </div>
+                        
+                        <div class="post-body-content">
+                            <h3>Keywords</h3>
+                            <div class="titlewrap">
+                                <label id="keyword-prompt-text" class="title-prompt-text" class="" for="keyword">Focus Keyword</label>
+                                <?=$this->formrow($form->get('keyword'))?>
+                            </div>
+                            <h3>Excerpt</h3>
+                            <div class="titlewrap">
+                                <label id="excerpt-prompt-text" class="title-prompt-text" class="" for="excerpt">Short Extract From A Writing</label>
+                                <?=$this->formrow($form->get('excerpt'))?>
+                            </div>
+                        </div>
+                        <?php 
+                            echo $this->formrow($form->get('status'));
+                            echo $this->form()->closeTag();
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$('#redactor_content2').redactor({
+			buttons: ['image'],
+			imageUpload: '<?=$this->basepath('media/upload-image')?>',
+			fileUpload: '<?=$this->basepath('media/upload-file')?>',
+			imageGetJson: '<?=$this->basepath('media/data')?>'
+		});
+		
+		$('#redactor_content').redactor({
+			imageUpload: '<?=$this->basepath('media/upload-image')?>',
+			fileUpload: '../demo/scripts/file_upload.php',
+			imageGetJson: '<?=$this->basepath('media/data')?>'
+		});
+		// title
+		$("#title").focusin(function(){
+			$("#title-prompt-text").html('');
+		});
+		$("#title").focusout(function(){
+			if($("#title").val()=='') {
+			    $("#title-prompt-text").html('Enter title here');
+			}
+		});
+		// title
+		$("#keyword").focusin(function(){
+			$("#keyword-prompt-text").html('');
+		});
+		$("#keyword").focusout(function(){
+			if($("#keyword").val()=='') {
+			    $("#keyword-prompt-text").html('Focus Keyword');
+			}
+		});
+		// excerpt
+		$("#excerpt").focusin(function(){
+			$("#excerpt-prompt-text").html('');
+		});
+		$("#excerpt").focusout(function(){
+			if($("#excerpt").val()=='') {
+			    $("#excerpt-prompt-text").html('Short Extract From A Writing');
+			}
+		});
+		// draft
+		$("#save-post").click(function(){ 
+			$("#draft").val('draft');
+		});
+		// time
+		$("#edit-post-status").click(function(){ // open
+			$("#edit-post-status").animate({ opacity: 1, height: "hide" }, 0, function() { });  	
+		    $("#timestamp-wrap" ).animate({ opacity: 1, height: "toggle" }, 400, function() { }); 
+		});
+		$("#cancel-timestamp").click(function(){ // close
+			$("#edit-post-status").animate({ opacity: 1, height: "toggle" }, 0, function() { });  	
+		    $("#timestamp-wrap" ).animate({ opacity: 0, height: "hide" }, 400, function() { }); 
+		});
+		// date
+		$("#update-timestamp").click(function(){
+			var day = $("#jj").val();
+			var month = $("#mm option:selected").text();
+		    var year = $("#aa").val();
+		    var min = $("#mm").val();
+		    var hour = $("#hh").val();
+		   $("#timestampdate").html(month.substring(3)+' '+day+', '+year+' @ '+hour+':'+min);
+		   $("#edit-post-status").animate({ opacity: 1, height: "toggle" }, 0, function() { });  	
+		   $("#timestamp-wrap" ).animate({ opacity: 0, height: "hide" }, 400, function() { });
+		});    
+		// type
+		$("#type").change(function()
+		{
+		    if($('#type option:selected').val()=='post')
+		    {
+			    $(".misc-categories").css('display','block');
+		    }
+		      else
+			{
+		    	$(".misc-categories").css('display','none');
+			}
+				
+		});       
+	}
+);
+</script>

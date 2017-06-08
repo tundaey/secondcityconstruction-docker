@@ -1,0 +1,125 @@
+<?php $this->headTitle("Add Picture")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('gallery', 'index', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Gallery > <?=$this->gallery->name?></h2>
+                <br/>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <?php 
+                        $form_delete = $this->form_delete;
+                        $form_delete->setAttribute('action', $this->url('gallery', array("action"=>"variations", "id"=>$this->id)));
+                        $form_delete->prepare();
+                         
+                        echo $this->form()->openTag($form_delete);
+                        echo '<div class="bulkaction">';
+                        echo $this->formRow($form_delete->get('bulk_actions'));
+                        echo $this->formSubmit($form_delete->get('submit'));
+                        echo '</div>';
+                        
+                        ?>
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="">Image</th>
+                                    <th class="name">Image Title</th>
+                                    <th class="">Description</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php                              
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('gallery', array("action"=>"edit", "id"=>$this->id)));
+                             $form_delete->prepare();                              
+                             echo $this->form()->openTag($form_delete);
+                                                          
+                             foreach ($this->product_variations as $v) :
+                                echo '<tr class="alternate">
+                                        <td class="cb"><input type="checkbox" name="cb[]" value="'.$v->id.'" /></td>
+                                        <td><img src="'.$this->basepath('/media/'.$this->config['website']['media'].'/gallery/'.$v->image).'"><input type="hidden" name="file['.$v->id.']" value="'.$v->image.'" /></td>
+                                        <td class="row-title"><a href="'.$this->url('gallery', array("action"=>"variation-edit","id"=>$v->id)).'">'.$v->name.'</a></td>
+                                        <td>'.$v->description.'</td>
+                                        <td>'.$v->position.'</td>
+                                      </tr>';
+                             endforeach; 
+                             
+                             ?> 
+                             </tbody> 
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="">Image</th>
+                                    <th class="name">Image Title</th>
+                                    <th class="">Description</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </tfoot>
+                             <tbody>
+                             </tbody>
+                         </table>
+                         <?php 
+                            echo '<div class="bulkaction">';
+                            echo $this->formRow($form_delete->get('bulk_actions'));
+                            echo $this->formRow($form_delete->get('bulk_action'));
+                            echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?> 
+                     </div>
+                     
+                      <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('gallery', array("action"=>"variations", "id"=>$this->id))); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                <h3>Add Pictures</h3>
+                                <?=$this->formRow($form_add->get('image'))?>
+                                <br/><br/>
+                                <?=$this->formRow($form_add->get('name'))?> 
+                                <p>Image title.</p>
+                                
+                                <?=$this->formRow($form_add->get('description'))?> 
+                                <p>Image description used under image.</p>
+                                
+                        		<?=$this->formRow($form_add->get('position'))?>
+                    			<p class="description">Image position in gallery.</p>
+                        		
+                        		<?=$this->formRow($form_add->get('submit'))?>
+                                
+                                <?php 
+                        		  echo $this->form()->closeTag();
+                        		?>
+                            </div>
+                        </div>
+                       </div>
+                 </div>
+             </div>
+         </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

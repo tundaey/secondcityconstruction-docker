@@ -1,5 +1,9 @@
-CREATE DATABASE  IF NOT EXISTS `secondcityconstruction.com` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `secondcityconstruction.com`;
+CREATE USER 'cms_admin'@'%' IDENTIFIED BY 'e14K6eK8mza8bZ9v';
+GRANT ALL ON secondcityconstructioncom.* TO 'cms_admin'@'%';
+FLUSH PRIVILEGES;
+
+-- CREATE DATABASE  IF NOT EXISTS `secondcityconstructioncom` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `secondcityconstructioncom`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: standard.cugsmutvmhvj.us-east-1.rds.amazonaws.com    Database: com.secondcityconstruction
@@ -299,6 +303,7 @@ INSERT INTO `users` VALUES (21,'Rafal','Luberda','rafal@storsky.com',1,'78c6e9b0
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

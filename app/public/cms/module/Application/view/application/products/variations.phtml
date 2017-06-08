@@ -1,0 +1,120 @@
+<?php $this->headTitle("Edit Product")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('products', '', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Product > <?=$this->product->name?></h2>
+                <br/>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <?php 
+                        $form_delete = $this->form_delete;
+                        $form_delete->setAttribute('action', $this->url('products', array("action"=>"variations", "id"=>$this->id)));
+                        $form_delete->prepare();
+                         
+                        echo $this->form()->openTag($form_delete);
+                        echo '<div class="bulkaction">';
+                        echo $this->formRow($form_delete->get('bulk_actions'));
+                        echo $this->formSubmit($form_delete->get('submit'));
+                        echo '</div>';
+                        
+                        ?>
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                   <th class="name">Name</th>
+                                    <th class="">Price</th>
+                                    <th class="">Qty</th>
+                                    <th class="">Position</th>
+                                    <th class="">Edit</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php                              
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('products', array("action"=>"edit", "id"=>$this->id)));
+                             $form_delete->prepare();                              
+                             echo $this->form()->openTag($form_delete);
+                                                          
+                             foreach ($this->product_variations as $v) :
+                                echo '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$v->id.'" /></td><td class="row-title">'.$v->name.'</td><td>'.$v->price.'</td><td>'.$v->qty.'</td><td>'.$v->position.'</td><td><a href="'.$this->url("products").'/variation-edit/'.$v->id.'">edit</a></td></tr>';
+                             endforeach;
+                             ?> 
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Name</th>
+                                    <th class="">Price</th>
+                                    <th class="">Qty</th>
+                                    <th class="">Position</th>
+                                    <th class="">Edit</th>
+                                </tr>
+                             </tfoot>
+                             <tbody>
+                             </tbody>
+                         </table>
+                         <?php 
+                            echo '<div class="bulkaction">';
+                            echo $this->formRow($form_delete->get('bulk_actions'));
+                            echo $this->formRow($form_delete->get('bulk_action'));
+                            echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?> 
+                     </div>
+                     
+                      <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('products', array("action"=>"variations", "id"=>$this->id))); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                <?=$this->formRow($form_add->get('name'))?>
+                                <p>Product variation name.</p>
+                                
+                                <?=$this->formRow($form_add->get('price'))?>
+                    			<p class="description">Product price in the cart.</p>
+                    			
+                    			<?=$this->formRow($form_add->get('qty'))?>
+                    			<p class="description">Product quantity. Use -1 for unlimited supply.</p>
+                        		
+                        		<?=$this->formRow($form_add->get('position'))?>
+                    			<p class="description">Product position in cart.</p>
+                        		
+                        		<?=$this->formRow($form_add->get('submit'))?>
+                                
+                                <?php 
+                        		  echo $this->form()->closeTag();
+                        		?>
+                            </div>
+                        </div>
+                       </div>
+                 </div>
+             </div>
+         </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

@@ -1,0 +1,56 @@
+<?php $this->headTitle("Edit Slide")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('slider', '', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Edit Slide</h2>
+                <?php
+                	$form = $this->form;
+                	$form->setAttribute('action', $this->url('slider', array("action"=>"edit", "id"=>$this->id))); 
+                	$form->prepare();
+                	echo $this->form()->openTag($form);
+                ?>
+                <table class="form-table">
+        		<tbody>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Slide</label></th>
+        			<td><img src="<?=$this->basepath('/media/'.$this->config['website']['media'].'/slider/'.$this->slide->val_1)?>" /></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Description</label></th>
+        			<td><?=$this->formRow($form->get('val_2'))?>
+        			<p class="description">Catchy title for your slide.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Slug</label></th>
+        			<td><?=$this->formRow($form->get('val_3'))?>
+        			<p class="description">Description appears under your title.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Link</label></th>
+        			<td><?=$this->formRow($form->get('val_4'))?>
+        			<p class="description">Link to your post. Full path: http://www.your_website.com/post-name.html</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"><label for="name">Order</label></th>
+        			<td><?=$this->formRow($form->get('val_5'))?>
+        			<p class="description">Set order for your slide.</p></td>
+        		  </tr>
+        		  <tr class="form-field form-required">
+        			<th scope="row"></th>
+        			<td><?=$this->formRow($form->get('submit'))?></td>
+        		  </tr>
+        		 </tbody>
+        		</table>
+        		<?php 
+        		  echo $this->form()->closeTag();
+        		?>
+            </div>
+        </div>
+    </div>
+</div>

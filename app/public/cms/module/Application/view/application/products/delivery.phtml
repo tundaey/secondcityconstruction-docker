@@ -1,0 +1,269 @@
+<?php $this->headTitle("Delivery") ?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('products', 'delivery', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            
+            <div class="wrap">
+                <h2>Live Calendar Preview:</h2><br/>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">
+                    <table>
+                    <tr>
+                    <td>
+                        <div class="col-wrap">
+                                <?php 
+                                    // preperate days to disable
+                                    $ds = '';
+                                    foreach ($this->delivery_disable_day as $da) :
+                                        $ds .= '"'.$da->day.'", ';
+                                    endforeach;
+                                    $ds = rtrim($ds, ", ");
+                                ?>
+                                <script>                                
+                                  var disabledDays = [<?=$ds?>];	
+                                  
+                                  function nationalDays(date) {
+                            		  var m = ("0" + (date.getMonth() + 1)).slice(-2), d = ("0" + date.getDate()).slice(-2), y = date.getFullYear();
+                            		  // console.log('Checking (raw): ' + m + '-' + d + '-' + y);
+                            		  for (i = 0; i < disabledDays.length; i++) {
+                            		    if($.inArray(y + '-' + m + '-' + d,disabledDays) != -1 || new Date() > date) {
+                            		       // console.log('bad:  ' + (m+1) + '-' + d + '-' + y + ' / ' + disabledDays[i]);
+                            		      return [false];
+                            		    }
+                            		  }
+                            		  // console.log('good:  ' + (m+1) + '-' + d + '-' + y);
+                            		  return [true];
+                            		}
+                            		function noWeekendsOrHolidays(date) {
+                            		  var noWeekend = jQuery.datepicker.noWeekends(date);
+                            		  return noWeekend[0] ? nationalDays(date) : noWeekend;
+                            		}
+                            		
+                                  $(function() 
+                                  {                              
+                                	  $("#datepicker").datepicker({
+                            			minDate: "<?=$this->delivery_range->from?>", 
+                            			maxDate: "<?=$this->delivery_range->to?>", 
+                              		    numberOfMonths: 2,
+                                		dateFormat: "yy-mm-dd",
+                            		    showButtonPanel: true,
+                            		    constrainInput: true,
+                            		    beforeShowDay: nationalDays,
+                            		    onSelect: function( selectedDate ) 
+                            		    {
+                                		    
+                        				}
+                            		  });
+                                  });
+                                  </script>
+                                  <div id="datepicker"></div>
+                                    
+                                    
+                                    <?php
+                                	$form_range = $this->form_range;
+                                	$form_range->setAttribute('action', $this->url('products', array("action"=>"delivery"))); 
+                                	$form_range->prepare();
+                                	echo $this->form()->openTag($form_range);
+                                    ?>
+                                    <br/>
+                                    <script>
+                                        $(function() 
+                                        {
+                                            $( ".from" ).datepicker({
+                                                defaultDate: "<?=$this->delivery_range->from?>",
+                                                changeMonth: true,
+                                                numberOfMonths: 3,
+                                				dateFormat: "yy-mm-dd",
+                                				onClose: function( selectedDate ) {
+                                					$( ".to" ).datepicker( "option", "minDate", selectedDate );
+                                				}
+                                			});
+                                            $( ".to" ).datepicker({
+                                				defaultDate: "+1w",
+                                				changeMonth: true,
+                                				numberOfMonths: 3,
+                                				dateFormat: "yy-mm-dd",
+                                				onClose: function( selectedDate ) {
+                                					$( ".from" ).datepicker( "option", "maxDate", selectedDate );
+                                				}
+                                            });
+                                        });
+                                    </script>
+                                    <table>
+                                    <tr><td><?=$this->formRow($form_range->get('from'))?></td>
+                                        <td><?=$this->formRow($form_range->get('to'))?></td>
+                                        <td><?=$this->formSubmit($form_range->get('submit'))?></td>
+                                    </table>
+                                    <?php
+                                    	echo $this->form()->closeTag();
+                                	?>
+                        </div>
+                        </td>
+                        <td valign="top">
+                            <!-- RIGHT -->
+                            <div class="form-wrap"> 
+                                <?php
+                                    $form_disable_day = $this->form_disable_day;
+                                    $form_disable_day->setAttribute('action', $this->url('products', array("action"=>"delivery")));
+                                    $form_disable_day->prepare();
+                                    echo $this->form()->openTag($form_disable_day);
+                                    
+                                    echo
+                                        '<table>
+                                            <tr><td>'.$this->formRow($form_disable_day->get('day')).'</td>
+                                            <td>'.$this->formSubmit($form_disable_day->get('submit')).'</td>
+                                        </table>';
+                                    
+                                    echo $this->form()->closeTag();
+                                    
+                                	echo '<div style="height: 170px; overflow: auto; width: 220px; background-color: #f2f2f2; border: 1px solid #ccc;">';
+                                	echo '<table width="100%">';
+                                	foreach ($this->delivery_disable_day as $dd) :
+                                	       echo '<tr style="border-bottom: 1px solid #ccc;"><td width="20">&nbsp;</td><td width="75"> &nbsp; '.$dd->day.'</td><td width="20"></td><td><a class="link" href="'.$this->basepath('/products/delivery-day-delete/'.$dd->id).'">remove</a></td></tr>';
+                                	endforeach;
+                                	echo '</table></div>';
+                            	   ?>
+                            </div>                           
+                            
+                        </td>
+                    </tr>
+                    <tr><td>
+                            <div class="col-wrap">
+                                <h2>Time List:</h2>       	
+                            	<?php
+                                	$form_time = $this->form_time;
+                                	$form_time->setAttribute('action', $this->url('products', array("action"=>"delivery"))); 
+                                	$form_time->prepare();
+                                	echo $this->form()->openTag($form_time);
+                                ?>
+                                <br/>
+                                <script>
+                                $(function() 
+                                {
+                                	$('.start').timepicker({
+                                    	minTime: '06:00:00',
+                                        maxHour: 21,
+                                        change: function(time) {
+                                        	// the input field
+                                            var element = $(this), text;
+                                            // get access to this TimePicker instance
+                                            var timepicker = element.timepicker();
+                                            text = 'Selected time is: ' + timepicker.format(time);
+                                            $('.end').timepicker("option", "minTime", timepicker.format(time));
+                                        }
+                                    });
+                                	$('.end').timepicker({
+                                    	minTime: '06:00:00',
+                                        maxHour: 21
+                                    });
+                                });
+                                </script>
+                                <table>
+                                <tr><td><?=$this->formRow($form_time->get('start'))?></td>
+                                    <td><?=$this->formRow($form_time->get('end'))?></td>
+                                    <td><?=$this->formSubmit($form_time->get('submit'))?></td>
+                                </tr>
+                                </table>
+                                <?php 
+                                
+                                    echo $this->form()->closeTag(); 
+                                    
+                                    echo '<table>';
+                                    foreach ($this->delivery_time as $dt) :
+                                        echo '<tr><td width="75">'.$dt->start.'</td><td width="20"> - </td><td width="75">'.$dt->end.'</td><td><a class="link" href="'.$this->basepath('/products/delivery-time-delete/'.$dt->id).'">remove</a></td></tr>';
+                                    endforeach;
+                                    echo '</table>';
+                                    
+                                ?>
+                                <br/>
+                                <!-- ZIP -->
+                                <h2>Delivery Zip Code List:</h2><br/>
+                                <?php
+                                	$form_zip_code = $this->form_zip_code;
+                                	$form_zip_code->setAttribute('action', $this->url('products', array("action"=>"delivery"))); 
+                                	$form_zip_code->prepare();
+                                	echo $this->form()->openTag($form_zip_code);
+                            	?>
+                            	<table>
+                                <tr><td><?=$this->formRow($form_zip_code->get('zip_code'))?></td>
+                                    <td><?=$this->formSubmit($form_zip_code->get('submit'))?></td>
+                                </tr>
+                                </table>
+                            	<?php 
+                                	echo $this->form()->closeTag();
+                                	
+                                	echo '<div style="height: 170px; overflow: auto; width: 220px; background-color: #f2f2f2; border: 1px solid #ccc;">';
+                                	echo '<table width="100%">';
+                                    	foreach ($this->delivery_zip_code as $dz) :
+                                    	
+                                    	   echo '<tr style="border-bottom: 1px solid #ccc;"><td width="20">&nbsp;</td><td width="75">'.$dz->zip_code.'</td><td><a class="link" href="'.$this->basepath('/products/delivery-zip-code-delete/'.$dz->id).'">remove</a></td></tr>';
+                                	   endforeach;
+                                	echo '</table>';
+                                	echo '</div>'
+                                ?>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div class="form-wrap">
+                                <h2>&nbsp;</h2><br/>
+                                <script>
+                                $(function()
+                                {
+                                    $( ".day" ).change(function() 
+                                    {   
+                                    	$.ajax({
+                							type: "POST",
+                							url: "<?=$this->basepath('/products/delivery-ajax-time/')?>",
+                							data: "day=" + $( ".day" ).val() + "&calendar=1"
+            							}).done(function(msg)
+            							{
+            							   $(".time").html(msg);
+            							});
+                                    }); 
+                                });
+                                </script>
+                                <?php
+                                    $form_disable_time = $this->form_disable_time;
+                                    $form_disable_time->setAttribute('action', $this->url('products', array("action"=>"delivery")));
+                                    $form_disable_time->prepare();
+                                    echo $this->form()->openTag($form_disable_time);
+                                    
+                                    echo
+                                        '<table>
+                                            <tr>
+                                                <td>'.$this->formRow($form_disable_time->get('day')).'</td>
+                                                <td>'.$this->formRow($form_disable_time->get('time')).'</td>
+                                                <td>'.$this->formSubmit($form_disable_time->get('submit')).'</td>
+                                            </tr>
+                                        </table>';
+                                    
+                                    echo $this->form()->closeTag();
+                                    
+                                	
+                                	echo '<table width="100%">';
+                                	foreach ($this->delivery_disable_times as $dts) :
+                                	       echo '<tr><td width="20">&nbsp;</td><td width="100"> &nbsp; '.$dts->day.'</td><td width="20"> - </td><td width="150"> &nbsp; '.$dts->time.'</td><td width="20"></td><td><a class="link" href="'.$this->basepath('/products/delivery-day-time-delete/'.$dts->id).'">remove</a></td></tr>';
+                                	endforeach;
+                                	echo '</table>';
+                            	   ?>
+                                <br/>
+                            </div>
+                        </td>
+                    </tr>
+                    </table>
+                    
+                </div>
+            </div>
+            
+            
+            
+</div>

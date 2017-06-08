@@ -1,0 +1,24 @@
+<?php $this->headTitle("Register") ?>
+
+<div class="login">
+    <h1>storsky</h1>
+    <?php 
+		if($this->flashMessenger()->hasMessages()) :
+			echo '<div class="message">'.$this->flashMessenger()->render().'</div>';
+		endif;
+			
+    	$form = $this->form;
+    	$form->setAttribute('action', $this->url('register'));
+    	$form->prepare();
+    	
+    	echo $this->form()->openTag($form);
+    	echo $this->formRow($form->get('usr_name'));
+    	echo $this->formRow($form->get('usr_last_name'));
+    	echo $this->formRow($form->get('usr_email'));
+    	echo $this->formRow($form->get('usr_password'));
+    	echo $this->formRow($form->get('usr_password_confirm'));
+    	echo $this->formRow($form->get('captcha'));
+    	echo $this->formSubmit($form->get('submit'));
+    	echo $this->form()->closeTag();
+	?>
+</div>

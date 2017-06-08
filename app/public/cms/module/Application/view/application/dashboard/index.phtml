@@ -1,0 +1,250 @@
+<?php $this->headTitle("Dashboard")?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('dashboard', '', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+	<div class="body">
+		<div class="body-content" tabindex="0">
+			<h2>Dashboard</h2>
+			<div>
+    			<div class="col-dashboard-left">
+    			     <h2>Page Views</h2>
+    			     <div>
+    			         <canvas id="pageViews" height="150"></canvas>
+    			     </div>
+    			</div>
+    			<div class="col-dashboard-right">
+    			     <h2>Users</h2>
+    			     <div>
+    			         <canvas id="dashboard-users" height="150"></canvas>
+    			     </div>
+    			</div>
+		   </div>
+		   <div>
+		      <div class="dashboard-25">
+		          <h2>Pages</h2>
+		          <div><ul class="dashboard-top">
+		              <?php 
+		                  $limit = 0;
+    		              foreach ($this->top_pages as $tp) :
+    		                  echo '<li>'.substr($tp->page, 0,35).'<span>'.$tp->views.'</span></li>'; $limit++;
+    		              endforeach;
+		              ?>
+		              </ul>
+		          </div>
+		      </div>
+		      
+		      <div class="dashboard-25 dashboard-25-next">
+		          <h2>Screen Resolution</h2>
+		          <div><ul class="dashboard-top">
+		              <?php 
+		                  $limit = 0;
+    		              foreach ($this->top_screen_resolution as $sr) :
+    		                  if($sr->screen_resolution != '') :
+    		                      if($limit < 10) :
+    		                          echo '<li>'.$sr->screen_resolution.'<span>'.$sr->views.'</span></li>';
+    		                      else :
+    		                          break;
+    		                      endif;
+                              endif;
+    		              endforeach;
+		              ?>
+		              </ul>
+		          </div>
+		      </div>
+		      
+		      <div class="dashboard-25 dashboard-25-next">
+		          <h2>Location</h2>
+		          <div><ul class="dashboard-top">
+		              <?php 
+		                  $limit = 0;
+    		              foreach ($this->top_location as $tl) :
+    		                  if($tl->city != '') :
+    		                      if($limit < 10) :
+    		                          echo '<li>'.$tl->state.', '.$tl->city.'<span>'.$tl->views.'</span></li>';
+            		              else :
+            		                  break;
+            		              endif;
+                              endif;
+    		              endforeach;
+		              ?>
+		              </ul>
+		          </div>
+		      </div>
+		      
+		      <div class="dashboard-25 dashboard-25-next">
+		          <h2>Language</h2>
+		          <div><ul class="dashboard-top">
+		              <?php 
+    		              foreach ($this->top_language as $tp) :
+    		                  if($tp->browser_language != '') :
+    		                      echo '<li>'.$tp->browser_language.'<span>'.$tp->views.'</span></li>';
+                              endif;
+    		              endforeach;
+		              ?>
+		              </ul>
+		          </div>
+		      </div>
+		      
+		   </div>
+		</div>
+	</div>
+</div>
+<?php 
+// page views
+foreach ($this->page_views as $pv) : 
+    $labels[] = date("M d", strtotime($pv->date));
+    $datas[] = $pv->views;
+endforeach;
+?>
+<script> 
+
+// page views
+var data = {
+        labels: [ 
+                 <?php 
+                 $i = 0; $label = '';
+                 $len = count($labels);
+                 foreach ($labels as $l) {
+                     if ($i < $len - 1) {
+                         $label .= '"'.$l.'", ';
+                     } else if ($i == $len - 1) {
+                         $label .= '"'.$l.'"';
+                     }
+                     $i++;
+                 }
+                 echo $label;
+                 ?>
+                 ],
+        datasets: [
+            
+            {
+                label: "Jun",
+                fillColor: "rgba(230,243,249,0.2)",
+                strokeColor: "rgba(5,141,199,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                       <?php 
+                           $i = 0; $data = '';
+                           $len = count($datas);
+                           foreach ($datas as $l) {
+                               if ($i < $len - 1) {
+                                   $data .= '"'.$l.'", ';
+                               } else if ($i == $len - 1) {
+                                   $data .= '"'.$l.'"';
+                               }
+                               $i++;
+                           }
+                           echo $data;
+                       ?>
+                       ]
+            }
+        ]
+};
+
+var options = {
+		maintainAspectRatio: false,
+		//scaleShowGridLines : false,
+		tooltipTemplate: "<%if (label){%><%=label%> Page Views: <%}%><%= value %>"
+}
+
+Chart.defaults.global.responsive = true;
+var ctx = document.getElementById("pageViews").getContext("2d");
+var myLineChart = new Chart(ctx).Line(data, options);
+
+// users
+<?php
+// users
+foreach ($this->users as $s) :
+$user_labels[] = date("M d", strtotime($s->date));
+$user_datas[] = $s->views;
+endforeach;
+?>
+var data = {
+        labels: [ 
+                 <?php 
+                 $i = 0; $label = '';
+                 $len = count($user_labels);
+                 foreach ($user_labels as $l) {
+                     if ($i < $len - 1) {
+                         $label .= '"'.$l.'", ';
+                     } else if ($i == $len - 1) {
+                         $label .= '"'.$l.'"';
+                     }
+                     $i++;
+                 }
+                 echo $label;
+                 ?>
+                 ],
+        datasets: [
+            
+            {
+                label: "Jun",
+                fillColor: "rgba(230,243,249,0.2)",
+                strokeColor: "rgba(5,141,199,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [
+                       <?php 
+                           $i = 0; $data = '';
+                           $len = count($user_datas);
+                           foreach ($user_datas as $l) {
+                               if ($i < $len - 1) {
+                                   $data .= '"'.$l.'", ';
+                               } else if ($i == $len - 1) {
+                                   $data .= '"'.$l.'"';
+                               }
+                               $i++;
+                           }
+                           echo $data;
+                       ?>
+                       ]
+            }
+        ]
+};
+
+var options = {
+		maintainAspectRatio: false,
+		//scaleShowGridLines : false,
+		tooltipTemplate: "<%if (label){%><%=label%> Uniq Visits: <%}%><%= value %>"
+}
+
+Chart.defaults.global.responsive = true;
+var ctx = document.getElementById("dashboard-users").getContext("2d");
+var myLineChart = new Chart(ctx).Line(data, options);
+  
+
+//For a pie chart
+var dataPie = [
+    {
+        value: 300,
+        color:"#F7464A",
+        highlight: "#FF5A5E",
+        label: "Red"
+    },
+    {
+        value: 50,
+        color: "#46BFBD",
+        highlight: "#5AD3D1",
+        label: "Green"
+    },
+    {
+        value: 100,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Yellow"
+    }
+]
+
+//var ctp = document.getElementById("mobile").getContext("2d");
+//var myPieChart = new Chart(ctp).Doughnut(dataPie);
+
+
+</script>

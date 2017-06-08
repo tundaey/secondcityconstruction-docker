@@ -1,0 +1,113 @@
+<?php $this->headTitle("Slider") ?>
+
+<div class="adminmenuwrap">
+	<?=$this->adminNavigation('slider', 'all', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Slider</h2>
+                <?php 
+                    if($this->flashmessenger()->hasMessages()) :
+                        echo '<div class="message">'.$this->flashmessenger()->render().'</div>';
+                    endif;
+                ?>
+                <div class="col-container">                    
+                    <div class="col-right">
+                        <table class="list-table widefat fixed tags">
+                            <thead>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="">Description</th>
+                                    <th class="">Image</th>
+                                    <th class="">Link</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </thead>
+                             <tbody>
+                             <?php
+                             $form_delete = $this->form_delete;
+                             $form_delete->setAttribute('action', $this->url('slider'));
+                             $form_delete->prepare();
+                             
+                             echo $this->form()->openTag($form_delete);            
+                             echo '<div class="bulkaction">';
+                                 echo $this->formRow($form_delete->get('bulk_actions'));
+                                 echo $this->formSubmit($form_delete->get('submit'));
+                             echo '</div>';
+                             
+                             foreach ($this->slides as $slide) : // load slides
+                                    $position = (is_null($slide->val_5)) ? '0' : $slide->val_5;
+                                    echo '<tr class="alternate"><td class="cb"><input type="checkbox" name="cb[]" value="'.$slide->id.'" /></td><td> <a class="row-title" href="'.$this->url('slider', array("action"=>"edit","id"=>$slide->id)).'">'.$slide->val_2.'</a></td><td>'.$slide->val_3.'</td><td><a href="'.$this->basepath('media/'.$this->config['website']['media'].'/slider/'.$slide->val_1).'" target="_blank">Link to image</a><input type="hidden" name="file['.$slide->id.']" value="'.$slide->val_1.'" /></td><td><a href="'.$slide->val_4.'" target="_blank">Link to post</a></td><td>'.$position.'</td></tr>';
+                             endforeach;
+                             
+                             ?>
+                             </tbody>
+                             <tfoot>
+                                <tr><th class="cb"></th>
+                                    <th class="name">Title</th>
+                                    <th class="">Description</th>
+                                    <th class="">Image</th>
+                                    <th class="">Link</th>
+                                    <th class="">Position</th>
+                                </tr>
+                             </tfoot>
+                        </table>  
+                        <?php 
+                            echo '<div class="bulkaction">';
+                            echo $this->formRow($form_delete->get('bulk_actions'));
+                            echo $this->formRow($form_delete->get('bulk_action'));
+                            echo $this->formSubmit($form_delete->get('submit'));
+                            echo '</div>';
+                            echo $this->form()->closeTag();
+                        ?>  
+                    </div>
+                    
+                    <div class="col-left">
+                        <div class="col-wrap">
+                            <div class="form-wrap">
+                                <h3>Add New Category</h3>
+                                <?php
+                                	$form_add = $this->form_add;
+                                	$form_add->setAttribute('action', $this->url('slider')); 
+                                	$form_add->prepare();
+                                	echo $this->form()->openTag($form_add);
+                                ?>
+                                    
+                                <?=$this->formRow($form_add->get('val_1'))?>
+                                <p>Image for your slider.</p>
+                                
+                                <?=$this->formRow($form_add->get('val_2'))?>
+                                <p>Catchy title for your slide.</p>
+                                
+                                <?=$this->formRow($form_add->get('val_3'))?>
+                                <p>Description appears under your title.</p>
+                                
+                                <?=$this->formRow($form_add->get('val_4'))?>
+                                <p>Link to your post. Full path: http://www.your_website.com/post-name.html</p>
+                                    
+                                <?php
+                                	echo $this->formSubmit($form_add->get('submit'));
+                                	echo $this->form()->closeTag();
+                            	?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(
+	function()
+	{
+		$( ".bulk_actions" ).change(function() // bulk actions 
+		{
+			$("#bulk_action").val($(this).val());	 
+		}); 	
+	}
+);
+</script>

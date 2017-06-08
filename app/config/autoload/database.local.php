@@ -3,7 +3,7 @@
 
 $host	= 'secondcityconstructioncom_mysql_1';
 $port   = '3306';
-$dbname = 'secondcityconstruction.com';
+$dbname = 'secondcityconstructioncom';
 $user 	= 'secondcity';
 $pass	= 'KxLnMY8ySfHZ9V3C';
 
@@ -26,6 +26,6 @@ return array(
         'dsn' => "mysql:dbname={$dbParams['database']};host={$dbParams['hostname']};port={$dbParams['port']}",
         'username' => $dbParams['username'],
         'password' => $dbParams['password'],
-        'driver_options' => array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"),
+        /*'driver_options' => array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'"),*/
     ),
 );

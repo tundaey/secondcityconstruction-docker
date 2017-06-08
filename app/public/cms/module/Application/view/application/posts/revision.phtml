@@ -1,0 +1,134 @@
+<?php $this->headTitle("Revision")?>
+
+<div class="adminmenuwrap">
+   	<?=$this->adminNavigation('posts', 'all', $this->basepath("/"));?>
+</div>
+
+<div class="content">
+    <div class="body">
+        <div class="body-content" tabindex="0" style="overflow: hidden;">
+            <div class="wrap">
+                <h2>Compare Revisions of "<a class="underline" href="<?=$this->url('posts', array('action'=>'edit', 'id'=>$this->current->post_id))?>"><?=$this->current->title?></a>"</h2>
+                <a class="underline" href="<?=$this->url('posts', array('action'=>'edit', 'id'=>$this->current->post_id))?>"> &larr; Return to post editor</a>
+            	<?php 
+                	$form = $this->form;
+                	$form->setAttribute('action', $this->url('posts', array("action"=>"revision", "id"=>$this->id)));
+                	$form->prepare();
+                	echo $this->form()->openTag($form);
+            	?>
+	            <div class="revisions-control-frame">
+	            		<div class="revisions-controls">
+	            			<div class="revisions-buttons">
+		            			<div class="revisions-previous">
+									<?php 
+    									if(isset($this->preview->post_id)) :
+    										echo '<a href="'.$this->url('posts', array('action'=>'revision', 'id'=>$this->preview->post_id)).'" class="button button-secondary">Previous</a>';
+    									else :
+    										echo '<a href="#" class="button button-secondary disabled">Previous</a>';
+    									endif;
+									?>
+								</div>
+								<div class="revisions-next">
+									<?php 
+									if(isset($this->next->post_id)) :
+										echo '<a href="'.$this->url('posts', array('action'=>'revision', 'id'=>$this->next->post_id)).'" class="button button-secondary">Next</a>';
+									else :
+										echo '<a href="#" class="button button-secondary disabled">Next</a>';
+									endif;
+									?>
+								</div>
+							</div>
+	            	
+				            <div class="revisions-meta">
+					            <div class="diff-meta diff-meta-to">
+					            	<div class="diff-title">
+					            		<div class="time-ago">
+					            			<?php
+						            			$datetime1 = new DateTime($this->right->modified);
+						            			$datetime2 = new DateTime(date("Y-m-d h:i"));
+						            			$interval = $datetime1->diff($datetime2);
+						            			
+						            			if($interval->format('%d' >= 1)) :
+													$ago = $interval->format('%d day(s)');
+						            			elseif($interval->format('%h') >= 1) :
+						            				$ago = $interval->format('%h:%i hour(s)');
+						            			elseif($interval->format('%i') >= 1) :
+						            				$ago = $interval->format('%i minute(s)');
+						            			else :
+						            				$ago = $interval->format('%s second(s)');
+						            			endif;
+					            			?>
+					            			<span class="revision-from">revision from</span><span> <?=$ago?> ago</span> <span class="revision-from">(<?=date("j M, Y @ h:i A", strtotime($this->current_revision->modified))?>)</span>
+					            		</div>
+					            		<?php
+						            		if(isset($this->next->post_id)) :
+						            			echo '<input type="submit" name="submit" value="Restore This Revision" class="restore-revision button-primary">';
+						            		else :
+						            			echo '<a class="restore-revision button button-primary disabled" href="#">Restore This Revision</a>';
+						            		endif;
+					            		?>
+					            	</div>
+					            </div>
+					        </div>
+			        
+				            <div class="revisions-diff-frame">
+				            	<div class="revisions-diff">
+				            		<h3>Title</h3>
+				            		<table class="diff">
+					            		<colgroup>
+											<col class="content diffsplit left">
+											<col class="content diffsplit middle">
+											<col class="content diffsplit right">
+										</colgroup>
+										<tr><td><?php if(isset($this->left->title)){ echo htmlspecialchars($this->left->title); } ?></td>
+											<td></td>
+											<td><?php if(isset($this->right->title)){ echo htmlspecialchars($this->right->title); } ?></td>
+										</tr>
+				            		</table>
+				            		<h3>Content</h3>
+				            		<table class="diff">
+					            		<colgroup>
+											<col class="content diffsplit left">
+											<col class="content diffsplit middle">
+											<col class="content diffsplit right">
+										</colgroup>
+										<tr><td><?php if(isset($this->left->content)){ echo htmlspecialchars($this->left->content); } ?></td>
+											<td></td>
+											<td><?php if(isset($this->right->content)){ echo htmlspecialchars($this->right->content); } ?></td>
+										</tr>
+				            		</table>
+				            		<h3>Keywords</h3>
+				            		<table class="diff">
+					            		<colgroup>
+											<col class="content diffsplit left">
+											<col class="content diffsplit middle">
+											<col class="content diffsplit right">
+										</colgroup>
+										<tr><td><?php if(isset($this->left->keyword)){ echo htmlspecialchars($this->left->keyword); } ?></td>
+											<td></td>                     
+											<td><?php if(isset($this->right->keyword)){ echo $this->right->keyword; } ?></td>
+										</tr>
+				            		</table>
+				            		<h3>Excerpt</h3>
+				            		<table class="diff">
+					            		<colgroup>
+											<col class="content diffsplit left">
+											<col class="content diffsplit middle">
+											<col class="content diffsplit right">
+										</colgroup>
+										<tr><td><?php if(isset($this->left->excerpt)){ echo $this->left->excerpt; } ?></td>
+											<td></td>
+											<td><?php if(isset($this->right->excerpt)){ echo $this->right->excerpt; } ?></td>
+										</tr>
+				            		</table>
+				            	</div>
+				            </div>
+				      </div>
+		        </div>
+		        <?php 
+		        	echo $this->form()->closeTag();
+		        ?>
+		    </div> <!-- end Wrap -->
+        </div>
+    </div>
+</div>
